@@ -1,5 +1,3 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
 
 import Sidebar from './Partials/Sidebar'
 import Header from './Partials/Header'
@@ -129,12 +127,12 @@ function QADetail() {
                                         </li>
                                     </ul>
 
-                                    <form class="w-100 row">
+                                    <form className="w-100 row">
                                         <div className="col-lg-10">
-                                            <textarea class="one form-control pe-4 bg-light w-100" id="autoheighttextarea" rows="2" placeholder="Write a message..."></textarea>
+                                            <textarea className="one form-control pe-4 bg-light w-100" id="autoheighttextarea" rows={2} placeholder="Write a message..."></textarea>
                                         </div>
                                         <div className="col-lg-2">
-                                            <button class="btn btn-primary ms-2 mb-0 w-100" type="button">Post <i className='fas fa-paper-plane'></i></button>
+                                            <button className="btn btn-primary ms-2 mb-0 w-100" type="button">Post <i className='fas fa-paper-plane'></i></button>
                                         </div>
                                     </form>
                                 </div>

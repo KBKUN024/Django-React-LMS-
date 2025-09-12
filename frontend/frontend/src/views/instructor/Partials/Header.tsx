@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
-import { Row, Col, Card, Button } from 'react-bootstrap'
+import { Row, Col, Card } from 'react-bootstrap'
 import { useAuthStore } from '@/store/auth'
-import { FaPlus, FaCog, FaPhone } from 'react-icons/fa'
+import { FaPlus } from 'react-icons/fa'
 
 function Header() {
     const { profile } = useAuthStore()

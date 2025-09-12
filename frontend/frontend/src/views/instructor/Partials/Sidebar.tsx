@@ -1,6 +1,5 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import { Nav, Navbar, Card, Offcanvas } from "react-bootstrap";
+import { Nav, Card, Offcanvas } from "react-bootstrap";
 import {
     BsGrid,
     BsCart,

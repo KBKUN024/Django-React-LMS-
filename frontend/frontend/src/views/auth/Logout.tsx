@@ -26,7 +26,7 @@ function Logout() {
                 </div>
                 <form
                   className="needs-validation mt-5"
-                  noValidate=""
+                  noValidate
                 >
                   <div className="d-grid d-flex">
                     <Link

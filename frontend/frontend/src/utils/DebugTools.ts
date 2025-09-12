@@ -91,7 +91,7 @@ export class DebugTools {
               const cache = client.getQueryCache();
               return {
                 queryCount: cache.getAll().length,
-                queries: cache.getAll().map(q => ({
+                queries: cache.getAll().map((q: any) => ({
                   queryKey: q.queryKey,
                   state: q.state.status,
                   dataUpdatedAt: q.state.dataUpdatedAt,
@@ -108,7 +108,7 @@ export class DebugTools {
         // 监控页面崩溃
         monitorPageCrash: () => {
           // 监控 beforeunload 事件
-          window.addEventListener('beforeunload', (e) => {
+          window.addEventListener('beforeunload', () => {
             console.log('页面即将卸载:', new Date().toISOString());
             localStorage.setItem('last_page_unload', new Date().toISOString());
           });

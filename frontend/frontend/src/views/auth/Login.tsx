@@ -11,7 +11,7 @@ function Login() {
   const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, startTransition] = useTransition();
   const navigate = useNavigate();
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     startTransition(async () => {
       if (email && password) {

@@ -9,12 +9,11 @@ import {
 } from "@/views/auth";
 import { Carts, Index, CourseDetail, Checkout, Success, Search } from "@/views/base";
 import { StudentDashBoard, StudentCourses, StudentCourseDetail, Wishlist, StudentProfile } from '@/views/student'
-import { ChangePassword, Dashboard, Courses, Review, Students, Earning, Coupon, Orders, TeacherNotification, QA, Profile, CourseCreate, CourseEdit } from '@/views/instructor'
+import { ChangePassword, Dashboard, Courses, Review, Students, Earning, Coupon, Orders, TeacherNotification, QA, CourseCreate, CourseEdit } from '@/views/instructor'
 import ScrollToTop from "@/components/ScrollToTop";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { useEffect } from "react";
-import { CartErrorHandler } from "@/utils/CartErrorHandler";
 import { useCartSync } from "@/hooks/useCartSync";
 import { StorageMonitor } from "@/utils/StorageMonitor";
 import { DebugTools } from "@/utils/DebugTools";

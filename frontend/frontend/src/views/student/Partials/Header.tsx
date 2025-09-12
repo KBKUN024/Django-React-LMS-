@@ -1,4 +1,3 @@
-import { FaGear } from 'react-icons/fa6'
 import type { Profile } from '@/types/base'
 
 function Header({ profile }: { profile?: Profile | null }) {

@@ -64,8 +64,8 @@ function ChangePassword() {
         onError: (error) => {
             console.log('修改密码出错,', error)
             Toast.fire({
-                icon: error.response.data.icon,
-                text: error.response.data.message
+                icon: (error as any)?.response?.data?.icon || 'error',
+                text: (error as any)?.response?.data?.message || 'An error occurred'
             })
         }
     })

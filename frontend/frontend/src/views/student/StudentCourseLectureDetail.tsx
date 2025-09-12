@@ -1,4 +1,3 @@
-import React from 'react'
 import Sidebar from './Partials/Sidebar'
 import Header from './Partials/Header'
 
@@ -1288,9 +1287,9 @@ function StudentCourseLectureDetail() {
                                                                                 </li>
                                                                             </ul>
 
-                                                                            <form class="w-100 d-flex">
-                                                                                <textarea class="one form-control pe-4 bg-light w-75" id="autoheighttextarea" rows="1" placeholder="Write a message..."></textarea>
-                                                                                <button class="btn btn-primary ms-2 mb-0 w-25" type="button">Post <i className='fas fa-paper-plane'></i></button>
+                                                                            <form className="w-100 d-flex">
+                                                                                <textarea className="one form-control pe-4 bg-light w-75" id="autoheighttextarea" rows={1} placeholder="Write a message..."></textarea>
+                                                                                <button className="btn btn-primary ms-2 mb-0 w-25" type="button">Post <i className='fas fa-paper-plane'></i></button>
                                                                             </form>
                                                                         </div>
                                                                     </div>
@@ -1317,7 +1316,7 @@ function StudentCourseLectureDetail() {
                                                                                     id="inputState2"
                                                                                     className="form-select js-choice"
                                                                                 >
-                                                                                    <option selected="">★★★★★ (5/5)</option>
+                                                                                    <option selected>★★★★★ (5/5)</option>
                                                                                     <option>★★★★☆ (4/5)</option>
                                                                                     <option>★★★☆☆ (3/5)</option>
                                                                                     <option>★★☆☆☆ (2/5)</option>

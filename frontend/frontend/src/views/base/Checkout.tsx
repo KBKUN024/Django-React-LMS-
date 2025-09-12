@@ -60,7 +60,7 @@ function Checkout() {
             console.log('error is:', error)
             Toast.fire({
                 icon: 'error',
-                text: error.response.data.message
+                text: (error as any)?.response?.data?.message || 'An error occurred'
             })
         }
     })
@@ -253,13 +253,14 @@ function Checkout() {
                                                     <div className="d-grid gap-2">
                                                         <PayPalScriptProvider options={initialOptions}>
                                                             <PayPalButtons className='mt-3'
-                                                                createOrder={(data, actions) => {
+                                                                createOrder={(_data, actions) => {
                                                                     return actions.order.create({
+                                                                        intent: "CAPTURE",
                                                                         purchase_units: [
                                                                             {
                                                                                 amount: {
                                                                                     currency_code: "USD",
-                                                                                    value: fetchOrderResult?.total
+                                                                                    value: fetchOrderResult?.total || '0'
                                                                                 }
                                                                             }
                                                                         ]
@@ -267,8 +268,10 @@ function Checkout() {
                                                                 }}
 
                                                                 onApprove={(data, actions) => {
+                                                                    if (!actions.order) {
+                                                                        return Promise.resolve();
+                                                                    }
                                                                     return actions.order.capture().then((details) => {
-                                                                        const name = details.payment_source?.paypal.name?.given_name
                                                                         const status = details.status;
                                                                         const paypal_order_id = data.orderID;
 

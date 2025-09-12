@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
-import { useQuery, useMutation } from '@tanstack/react-query'
+import { useParams } from 'react-router-dom'
+import { useMutation } from '@tanstack/react-query'
 import { createAuthenticatedAxios } from '@/api/axios'
 
 function Success() {

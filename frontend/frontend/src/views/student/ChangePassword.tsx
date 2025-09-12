@@ -1,4 +1,3 @@
-import React from 'react'
 import Sidebar from './Partials/Sidebar'
 import Header from './Partials/Header'
 
@@ -23,7 +22,7 @@ function ChangePassword() {
                                 {/* Card body */}
                                 <div className="card-body">
                                     <div>
-                                        <form className="row gx-3 needs-validation" noValidate="">
+                                        <form className="row gx-3 needs-validation" noValidate>
                                             {/* First name */}
                                             <div className="mb-3 col-12 col-md-12">
                                                 <label className="form-label" htmlFor="fname">
@@ -34,7 +33,7 @@ function ChangePassword() {
                                                     id="password"
                                                     className="form-control"
                                                     placeholder="**************"
-                                                    required=""
+                                                    required
                                                 />
                                             </div>
                                             {/* Last name */}
@@ -47,7 +46,7 @@ function ChangePassword() {
                                                     id="password"
                                                     className="form-control"
                                                     placeholder="**************"
-                                                    required=""
+                                                    required
                                                 />
                                             </div>
 
@@ -61,7 +60,7 @@ function ChangePassword() {
                                                     id="password"
                                                     className="form-control"
                                                     placeholder="**************"
-                                                    required=""
+                                                    required
                                                 />
                                                 <div className="invalid-feedback">Please choose country.</div>
                                             </div>

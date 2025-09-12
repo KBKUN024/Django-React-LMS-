@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
 function Register() {
@@ -27,7 +26,7 @@ function Register() {
                 {/* Form */}
                 <form
                   className="needs-validation"
-                  noValidate=""
+                  noValidate
                 >
                   {/* Username */}
                   <div className="mb-3">
@@ -43,7 +42,7 @@ function Register() {
                       className="form-control"
                       name="full_name"
                       placeholder="John Doe"
-                      required=""
+                      required
                     />
                   </div>
                   <div className="mb-3">
@@ -59,7 +58,7 @@ function Register() {
                       className="form-control"
                       name="email"
                       placeholder="johndoe@gmail.com"
-                      required=""
+                      required
                     />
                   </div>
 
@@ -77,7 +76,7 @@ function Register() {
                       className="form-control"
                       name="password"
                       placeholder="**************"
-                      required=""
+                      required
                     />
                   </div>
                   <div className="mb-3">
@@ -93,7 +92,7 @@ function Register() {
                       className="form-control"
                       name="password"
                       placeholder="**************"
-                      required=""
+                      required
                     />
                   </div>
                   <div>

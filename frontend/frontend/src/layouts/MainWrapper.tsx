@@ -1,4 +1,4 @@
-import { useEffect, useTransition, useCallback } from "react";
+import { useEffect, useTransition } from "react";
 import type { ReactNode } from "react";
 import { CheckUser } from "@/api/auth";
 import { useNavigate, useLocation } from 'react-router-dom'

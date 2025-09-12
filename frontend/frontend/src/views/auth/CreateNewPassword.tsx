@@ -17,7 +17,7 @@ function CreateNewPassword() {
   console.log("params:", params);
   const otp = params.get("otp") as string;
   const uuidb64 = params.get("uuidb64") as string;
-  const refreshToken = params.get("refresh_token") as string;
+  // const refreshToken = params.get("refresh_token") as string;
   const changePassword = async () => {
     try {
       const formData = new FormData();
@@ -32,7 +32,7 @@ function CreateNewPassword() {
       Swal.fire({
         title: "修改密码出错",
         icon: "error",
-        text: error.toString(),
+        text: error instanceof Error ? error.message : String(error),
       });
     }
   };
@@ -48,7 +48,7 @@ function CreateNewPassword() {
       startTransition(async () => {
         const res = await changePassword();
         console.log("修改密码:", res);
-        if (res.status == 201) {
+        if (res?.status == 201) {
           Swal.fire({
             title: "密码修改成功！",
             icon: "success",

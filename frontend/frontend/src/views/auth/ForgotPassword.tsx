@@ -1,5 +1,4 @@
 import { useTransition, useState } from "react";
-import { Link } from "react-router-dom";
 
 import { apiClient } from "@/api/axios";
 import { Container, Row, Col, Form, Card, Button } from "react-bootstrap";
@@ -13,7 +12,7 @@ function ForgotPassword() {
     const res = await apiClient.get(`/user/password-reset/${email}`);
     return res;
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
       startTransition(async () => {

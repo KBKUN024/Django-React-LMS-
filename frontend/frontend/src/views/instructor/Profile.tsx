@@ -1,4 +1,3 @@
-import React from 'react'
 import Sidebar from './Partials/Sidebar'
 import Header from './Partials/Header'
 
@@ -58,7 +57,7 @@ function Profile() {
                                                     id="fname"
                                                     className="form-control"
                                                     placeholder="First Name"
-                                                    required=""
+                                                    required
                                                 />
                                                 <div className="invalid-feedback">Please enter first name.</div>
                                             </div>
@@ -67,7 +66,7 @@ function Profile() {
                                                 <label className="form-label" htmlFor="lname">
                                                     About Me
                                                 </label>
-                                                <textarea name="" id="" cols="30" rows="5" className='form-control'></textarea>
+                                                <textarea name="" id="" cols={30} rows={5} className='form-control'></textarea>
                                                 <div className="invalid-feedback">Please enter last name.</div>
                                             </div>
 
@@ -81,7 +80,7 @@ function Profile() {
                                                     id="country"
                                                     className="form-control"
                                                     placeholder="Country"
-                                                    required=""
+                                                    required
                                                 />
                                                 <div className="invalid-feedback">Please choose country.</div>
                                             </div>

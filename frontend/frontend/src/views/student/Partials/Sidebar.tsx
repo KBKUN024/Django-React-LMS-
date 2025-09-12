@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { BsGridFill } from "react-icons/bs";
-import { FaShoppingCart, FaHeart, FaEnvelope, FaEdit, FaLock, FaSignOutAlt } from "react-icons/fa";
+import { FaShoppingCart, FaHeart, FaEdit, FaLock, FaSignOutAlt } from "react-icons/fa";
 
 function Sidebar() {
     return (
