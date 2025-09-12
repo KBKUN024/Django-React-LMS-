@@ -1,0 +1,10 @@
+export { default as ChangePassword } from "./ChangePassword";
+export { default as StudentCourses } from "./Courses";
+export { default as StudentCourseDetail } from "./CourseDetail";
+export { default as StudentDashBoard } from "./Dashboard";
+export { default as StudentProfile } from "./Profile";
+export { default as QA } from "./QA";
+export { default as QADetail } from "./QADetail";
+export { default as StudentCourseLectureDetail } from "./StudentCourseLectureDetail";
+export { default as Wishlist } from "./Wishlist";
+export { default as Sidebar } from "./Partials/Sidebar";
