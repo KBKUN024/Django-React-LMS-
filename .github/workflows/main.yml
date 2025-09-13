@@ -41,7 +41,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: .
-        file: ./backend/Dockerfile
+        file: ./backend/Dockerfile.fast
         platforms: linux/amd64
         push: true
         tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-backend:latest
@@ -81,20 +81,45 @@ jobs:
           echo "停止旧容器..."
           docker-compose -f docker-compose.yml down || true
           
-          # 设置构建超时和优化参数
-          export DOCKER_BUILDKIT=1
-          export COMPOSE_DOCKER_CLI_BUILD=1
+          # 创建环境变量文件
+          echo "创建环境变量文件..."
+          cat > .env << EOF
+          SECRET_KEY=your-secret-key-here-$(date +%s)
+          DEBUG=False
+          ALLOWED_HOSTS=lms.tyuan21081.top,localhost,127.0.0.1
+          DEFAULT_FROM_EMAIL=noreply@tyuan21081.top
+          SERVER_EMAIL=noreply@tyuan21081.top
+          EMAIL_HOST=smtp.gmail.com
+          EMAIL_PORT=587
+          EMAIL_USE_SSL=False
+          EMAIL_USE_TLS=True
+          EMAIL_HOST_USER=your-email@gmail.com
+          EMAIL_HOST_PASSWORD=your-app-password
+          FRONTEND_SITE_URL=https://lms.tyuan21081.top
+          EOF
           
-          # 分步构建，避免超时
-          echo "构建backend镜像（增加超时时间）..."
-          timeout 1800 docker build --progress=plain --no-cache \
-            -t lms-backend:latest -f backend/Dockerfile . || \
-          timeout 1800 docker build --progress=plain \
-            -t lms-backend:latest -f backend/Dockerfile.fast .
+          # 拉取预构建镜像（从GitHub Container Registry）
+          echo "拉取预构建镜像..."
+          docker pull ghcr.io/kbkun024/django-react-lms-backend:latest || {
+            echo "Backend镜像拉取失败，使用快速本地构建..."
+            docker build --progress=plain -t lms-backend:latest -f backend/Dockerfile.fast .
+          }
           
-          echo "构建frontend镜像..."
-          timeout 600 docker build --progress=plain \
-            -t lms-frontend:latest -f frontend/frontend/Dockerfile .
+          docker pull ghcr.io/kbkun024/django-react-lms-frontend:latest || {
+            echo "Frontend镜像拉取失败，使用快速本地构建..."
+            docker build --progress=plain -t lms-frontend:latest -f frontend/frontend/Dockerfile .
+          }
+          
+          # 重新标记镜像为本地名称（如果拉取成功）
+          if docker image inspect ghcr.io/kbkun024/django-react-lms-backend:latest >/dev/null 2>&1; then
+            echo "标记backend镜像..."
+            docker tag ghcr.io/kbkun024/django-react-lms-backend:latest lms-backend:latest
+          fi
+          
+          if docker image inspect ghcr.io/kbkun024/django-react-lms-frontend:latest >/dev/null 2>&1; then
+            echo "标记frontend镜像..."
+            docker tag ghcr.io/kbkun024/django-react-lms-frontend:latest lms-frontend:latest
+          fi
           
           # 启动服务
           echo "启动服务..."
