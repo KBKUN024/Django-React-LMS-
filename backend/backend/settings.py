@@ -27,9 +27,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = env.bool('DEBUG', default=False)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['lms.tyuan21081.top', 'localhost', '127.0.0.1', 'lms-backend', 'backend']
 
 AUTH_USER_MODEL = "userauths.User"
 # Application definition
@@ -132,13 +132,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
-STATIC_ROOT = BASE_DIR / "templates"
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
-MEDIA_URL = "media/"  # 127.0.0.1/media/avatar.jpg
+MEDIA_URL = "/media/"  # 127.0.0.1/media/avatar.jpg
 MEDIA_ROOT = BASE_DIR / "media"
 
 
@@ -266,13 +266,16 @@ SIMPLE_JWT = {
 
 # CORS配置 - 允许前端跨域访问
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",  # Vite默认端口
-    "http://127.0.0.1:5173",
-    "http://localhost:3000",  # 备用端口
+    'https://lms.tyuan21081.top',
+    'http://lms.tyuan21081.top',
+    'http://localhost:3000',  # 开发环境前端
+    'http://127.0.0.1:3000',  # 开发环境前端
+    'http://lms-frontend',    # Docker容器间通信
+    'http://lms-frontend:80', # Docker容器间通信
 ]
 
 # 开发环境允许所有来源（生产环境应该删除这行）
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = False
 
 # 允许的请求头
 CORS_ALLOW_HEADERS = [

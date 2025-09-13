@@ -55,5 +55,8 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/v1/", include("api.urls"), name="api_url"),
 ]
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+# 在开发环境或DEBUG模式下服务媒体文件和静态文件
+import os
+if settings.DEBUG or os.environ.get('DJANGO_DEV_MODE'):
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

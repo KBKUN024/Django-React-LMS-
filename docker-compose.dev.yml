@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile.dev
+    image: lms-backend:dev
+    container_name: lms-backend-dev
+    ports:
+      - "8000:8000"
+    environment:
+      - DJANGO_SETTINGS_MODULE=backend.settings
+      - PYTHONPATH=/app
+      - DEBUG=True
+      - DJANGO_DEV_MODE=True
+      - SECRET_KEY=${SECRET_KEY}
+      - DEFAULT_FROM_EMAIL=${DEFAULT_FROM_EMAIL}
+      - SERVER_EMAIL=${SERVER_EMAIL}
+      - EMAIL_HOST=${EMAIL_HOST}
+      - EMAIL_PORT=${EMAIL_PORT}
+      - EMAIL_USE_SSL=${EMAIL_USE_SSL}
+      - EMAIL_HOST_USER=${EMAIL_HOST_USER}
+      - EMAIL_HOST_PASSWORD=${EMAIL_HOST_PASSWORD}
+      - FRONTEND_SITE_URL=http://localhost:3000
+    volumes:
+      # 开发模式：挂载源代码，实现热重载
+      - ./backend:/app
+      # 排除一些不需要挂载的目录
+      - /app/__pycache__
+      - /app/*/__pycache__
+      - /app/*/*/__pycache__
+    networks:
+      - lms-network
+    restart: unless-stopped
+    # 开发模式使用Django开发服务器，支持自动重载
+    command: python manage.py runserver 0.0.0.0:8000
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/frontend/Dockerfile.dev
+    image: lms-frontend:dev
+    container_name: lms-frontend-dev
+    ports:
+      - "3000:3000"  # Vite开发服务器端口
+    volumes:
+      # 开发模式：挂载源代码，实现热重载
+      - ./frontend/frontend:/app
+      - /app/node_modules  # 匿名卷，避免覆盖node_modules
+      - /app/dist         # 排除构建目录
+    networks:
+      - lms-network
+    restart: unless-stopped
+    environment:
+      - CHOKIDAR_USEPOLLING=true  # 支持文件监听（在某些系统上需要）
+      - VITE_API_BASE_URL=http://localhost:8000/api/v1/
+    depends_on:
+      - backend
+
+networks:
+  lms-network:
+    driver: bridge
+    name: lms-network-dev

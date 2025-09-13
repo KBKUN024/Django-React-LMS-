@@ -1,32 +1,59 @@
-# backend/Dockerfile
+# backend/Dockerfile - 生产环境优化版本
 FROM python:3.13-slim AS base
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    PIP_NO_CACHE_DIR=1
-WORKDIR /app
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
 
 # build stage
 FROM base AS builder
-RUN apt-get update && apt-get install -y build-essential && rm -rf /var/lib/apt/lists/*
+WORKDIR /app
+
+# 安装系统依赖（最小化）
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends build-essential && \
+    rm -rf /var/lib/apt/lists/*
+
+# 安装Python依赖
 COPY backend/requirements.txt ./
-RUN pip install --upgrade pip && pip install -r requirements.txt
+RUN pip install --upgrade pip && \
+    pip install --user -r requirements.txt
+
+# runtime stage - 最小化生产镜像
+FROM base AS runtime
+WORKDIR /app
+
+# 创建非root用户
+RUN adduser --disabled-password --gecos '' --uid 1000 appuser
+
+# 从builder复制Python依赖
+COPY --from=builder /root/.local /home/appuser/.local
+ENV PATH=/home/appuser/.local/bin:$PATH
+
+# 复制应用代码
 COPY backend/ /app/
 
-# runtime
-FROM base AS runtime
-RUN adduser --disabled-password --gecos '' appuser
-WORKDIR /app
-COPY --from=builder /usr/local/lib/python3.13 /usr/local/lib/python3.13
-COPY --from=builder /usr/local/bin /usr/local/bin
-COPY --from=builder /app /app
-# 注意：你的项目 STATIC_ROOT 是 templates/，需确保生产环境正确配置
+# 设置环境变量
 ENV DJANGO_SETTINGS_MODULE=backend.settings \
     PYTHONPATH=/app
-# 创建必需目录
-RUN mkdir -p /app/static /app/media /app/templates
+
+# 创建必需目录并设置权限
+RUN mkdir -p /app/static /app/media /app/staticfiles /app/templates && \
+    chown -R appuser:appuser /app
+
 # 切换到非root用户
 USER appuser
+
 # 收集静态文件
 RUN python manage.py collectstatic --noinput || true
+
 EXPOSE 8000
-CMD ["gunicorn", "backend.wsgi:application", "-b", "0.0.0.0:8000", "--workers", "3", "--timeout", "60"]
+
+# 使用更轻量的启动配置
+CMD ["gunicorn", "backend.wsgi:application", \
+     "--bind", "0.0.0.0:8000", \
+     "--workers", "2", \
+     "--worker-class", "sync", \
+     "--max-requests", "1000", \
+     "--timeout", "30", \
+     "--keep-alive", "2"]
