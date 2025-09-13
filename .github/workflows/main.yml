@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  REGISTRY: docker.io
+  REGISTRY: ghcr.io
   IMAGE_NAME: kbkun024/django-react-lms
 
 jobs:
