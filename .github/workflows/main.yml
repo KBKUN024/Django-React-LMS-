@@ -81,19 +81,23 @@ jobs:
           echo "停止旧容器..."
           docker-compose -f docker-compose.yml down || true
           
-          # 在服务器上直接构建镜像
-          echo "构建backend镜像..."
-          docker build -t lms-backend:latest -f backend/Dockerfile .
+          # 设置构建超时和优化参数
+          export DOCKER_BUILDKIT=1
+          export COMPOSE_DOCKER_CLI_BUILD=1
+          
+          # 分步构建，避免超时
+          echo "构建backend镜像（增加超时时间）..."
+          timeout 1800 docker build --progress=plain --no-cache \
+            -t lms-backend:latest -f backend/Dockerfile . || \
+          timeout 1800 docker build --progress=plain \
+            -t lms-backend:latest -f backend/Dockerfile.fast .
+          
           echo "构建frontend镜像..."
-          docker build -t lms-frontend:latest -f frontend/frontend/Dockerfile .
+          timeout 600 docker build --progress=plain \
+            -t lms-frontend:latest -f frontend/frontend/Dockerfile .
           
-          # 更新docker-compose.yml中的镜像标签
-          echo "更新配置文件..."
-          sed -i "s|image: lms-backend:latest|image: lms-backend:latest|g" docker-compose.yml
-          sed -i "s|image: lms-frontend:latest|image: lms-frontend:latest|g" docker-compose.yml
-          
-          # 启动新容器
-          echo "启动容器..."
+          # 启动服务
+          echo "启动服务..."
           docker-compose -f docker-compose.yml up -d
           
           # 检查启动状态

@@ -1,0 +1,35 @@
+# 超快速构建Dockerfile - 紧急备用方案
+FROM python:3.13-slim
+
+# 最小化系统更新
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1
+
+WORKDIR /app
+
+# 只安装运行时必需的工具（跳过构建工具）
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends curl && \
+    rm -rf /var/lib/apt/lists/*
+
+# 使用预编译的二进制包（避免编译）
+COPY backend/requirements.txt .
+RUN pip install --upgrade pip && \
+    pip install --only-binary=all -r requirements.txt
+
+# 复制应用
+COPY backend/ /app/
+
+# 创建用户
+RUN adduser --disabled-password --gecos '' appuser && \
+    chown -R appuser:appuser /app
+USER appuser
+
+# 创建目录
+RUN mkdir -p /app/static /app/media
+
+EXPOSE 8000
+
+# 使用简单的启动命令
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
