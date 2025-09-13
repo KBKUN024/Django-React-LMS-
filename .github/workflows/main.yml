@@ -61,12 +61,14 @@ jobs:
 
     - name: Deploy to Aliyun Server
       if: github.ref == 'refs/heads/main'
-      uses: appleboy/ssh-action@v1.1.0
+      uses: appleboy/ssh-action@v0.1.7
       with:
         host: ${{ secrets.ALIYUN_HOST }}
         username: ${{ secrets.ALIYUN_USERNAME }}
         key: ${{ secrets.ALIYUN_SSH_KEY }}
-        port: ${{ secrets.ALIYUN_PORT }}
+        port: 22
+        timeout: 30s
+        command_timeout: 10m
         script: |
           # 进入项目目录
           cd /opt/lms
