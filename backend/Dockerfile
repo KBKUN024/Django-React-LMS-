@@ -11,7 +11,7 @@ WORKDIR /app
 
 # 安装系统依赖（最小化）
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends build-essential && \
+    apt-get install -y --no-install-recommends build-essential curl && \
     rm -rf /var/lib/apt/lists/*
 
 # 安装Python依赖
@@ -22,6 +22,11 @@ RUN pip install --upgrade pip && \
 # runtime stage - 最小化生产镜像
 FROM base AS runtime
 WORKDIR /app
+
+# 安装runtime必需的工具（curl用于健康检查）
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends curl && \
+    rm -rf /var/lib/apt/lists/*
 
 # 创建非root用户
 RUN adduser --disabled-password --gecos '' --uid 1000 appuser
@@ -45,7 +50,7 @@ RUN mkdir -p /app/static /app/media /app/staticfiles /app/templates && \
 USER appuser
 
 # 收集静态文件
-RUN python manage.py collectstatic --noinput || true
+RUN python manage.py collectstatic --noinput --clear || true
 
 EXPOSE 8000
 

@@ -3,7 +3,7 @@ import Sidebar from './Partials/Sidebar'
 import Header from './Partials/Header'
 import { useQuery } from '@tanstack/react-query'
 import { createAuthenticatedAxios } from '@/api/axios'
-import { getCurrentTeacherId } from '@/api/constants'
+import { getCurrentTeacherId, MEDIA_BASE_URL } from '@/api/constants'
 import type { TeacherSummary, TeacherEarning, TeacherBestSelling } from '@/types'
 function Earning() {
     const authAxios = createAuthenticatedAxios()
@@ -123,7 +123,7 @@ function Earning() {
                                                             <a href="#" className='text-decoration-none text-dark'>
                                                                 <div className="d-flex align-items-center">
                                                                     <img
-                                                                        src={'http://127.0.0.1:8000' + String(course.course_image)}
+                                                                        src={MEDIA_BASE_URL + String(course.course_image)}
                                                                         alt="course"
                                                                         style={{ width: "100px", height: "70px", borderRadius: "50%", objectFit: "cover" }}
                                                                         className="rounded img-4by3-lg"

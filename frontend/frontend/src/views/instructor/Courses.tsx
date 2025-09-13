@@ -116,7 +116,7 @@ function Courses() {
                                                                 <div>
                                                                     <a href="#">
                                                                         <Image
-                                                                            src={course.image?.startsWith('http') ? String(course.image) : 'http://127.0.0.1:8000' + String(course.image)}
+                                                                            src={course.image?.startsWith('http') ? String(course.image) : String(course.image)}
                                                                             alt="course"
                                                                             rounded
                                                                             style={{

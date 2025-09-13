@@ -4,7 +4,7 @@ import Header from "./Partials/Header";
 import { Container, Row, Col, Card, Form, Button, Modal, Badge } from "react-bootstrap";
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { createAuthenticatedAxios } from '@/api/axios';
-import { getCurrentTeacherId, getCurrentUserId } from '@/api/constants';
+import { getCurrentTeacherId, getCurrentUserId, MEDIA_BASE_URL } from '@/api/constants';
 import { FaEnvelope, FaArrowRight, FaSpinner, FaPlane } from "react-icons/fa";
 import type { TeacherQuestionAndAnsWer } from '@/types'
 import dayjs from 'dayjs'
@@ -211,7 +211,7 @@ function QA() {
                         <a href="#">
                           <img
                             className="avatar-img rounded-circle"
-                            src={!sq?.profile.image?.startsWith('http') ? 'http://127.0.0.1:8000' + sq?.profile.image : sq?.profile.image || "https://geeksui.codescandy.com/geeks/assets/images/avatar/avatar-4.jpg"}
+                            src={!sq?.profile.image?.startsWith('http') ? MEDIA_BASE_URL + sq?.profile.image : sq?.profile.image || "https://geeksui.codescandy.com/geeks/assets/images/avatar/avatar-4.jpg"}
                             style={{
                               width: "40px",
                               height: "40px",

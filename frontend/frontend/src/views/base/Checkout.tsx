@@ -7,7 +7,7 @@ import { createAuthenticatedAxios } from '@/api/axios'
 import { useParams } from 'react-router-dom'
 import { BsFillPatchExclamationFill } from "react-icons/bs";
 import { PayPalButtons, PayPalScriptProvider } from '@paypal/react-paypal-js'
-import { PAYPAL_CLIENT_ID } from '@/api/constants'
+import { PAYPAL_CLIENT_ID, PAYMENT_BASE_URL } from '@/api/constants'
 import Toast from '@/utils/SweetAlert2/Toast'
 
 
@@ -284,7 +284,7 @@ function Checkout() {
                                                             />
                                                         </PayPalScriptProvider>
                                                         <form
-                                                            action={`http://127.0.0.1:8000/api/v1/payment/stripe-checkout/${fetchOrderResult?.cart_order_id}/`}
+                                                            action={`${PAYMENT_BASE_URL}/api/v1/payment/stripe-checkout/${fetchOrderResult?.cart_order_id}/`}
                                                             className="w-100"
                                                             target='_blank'
                                                             method="POST"

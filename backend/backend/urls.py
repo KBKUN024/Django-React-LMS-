@@ -57,6 +57,13 @@ urlpatterns = [
 ]
 # 在开发环境或DEBUG模式下服务媒体文件和静态文件
 import os
-if settings.DEBUG or os.environ.get('DJANGO_DEV_MODE'):
+# 使用更可靠的条件判断
+serve_static_files = (
+    settings.DEBUG or 
+    os.environ.get('DJANGO_DEV_MODE') == 'True' or
+    os.environ.get('SERVE_STATIC_FILES') == 'True'
+)
+
+if serve_static_files:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

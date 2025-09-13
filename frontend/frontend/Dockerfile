@@ -21,8 +21,8 @@ RUN rm -rf /usr/share/nginx/html/*
 COPY --from=build /app/dist /usr/share/nginx/html
 COPY docker/nginx/frontend.conf /etc/nginx/conf.d/default.conf
 
-# 优化nginx配置
-RUN nginx -t
+# 跳过nginx配置测试（构建时无法解析容器主机名）
+# nginx配置将在容器启动时验证
 
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]

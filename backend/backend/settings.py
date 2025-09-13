@@ -29,7 +29,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG', default=False)
 
-ALLOWED_HOSTS = ['lms.tyuan21081.top', 'localhost', '127.0.0.1', 'lms-backend', 'backend']
+ALLOWED_HOSTS = ['lms.tyuan21081.top', 'localhost', '127.0.0.1', 'lms-backend', 'backend', 'lms-frontend']
 
 AUTH_USER_MODEL = "userauths.User"
 # Application definition
@@ -137,6 +137,12 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
+# 确保静态文件查找器包含所有必要的查找器
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
 
 MEDIA_URL = "/media/"  # 127.0.0.1/media/avatar.jpg
 MEDIA_ROOT = BASE_DIR / "media"
@@ -270,12 +276,18 @@ CORS_ALLOWED_ORIGINS = [
     'http://lms.tyuan21081.top',
     'http://localhost:3000',  # 开发环境前端
     'http://127.0.0.1:3000',  # 开发环境前端
+    'http://localhost:8080',  # 生产环境前端
+    'http://127.0.0.1:8080',  # 生产环境前端
     'http://lms-frontend',    # Docker容器间通信
     'http://lms-frontend:80', # Docker容器间通信
 ]
 
-# 开发环境允许所有来源（生产环境应该删除这行）
+# 允许来自同源的请求（解决相对路径API请求的CORS问题）
 CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https://lms\.tyuan21081\.top$",
+    r"^http://lms\.tyuan21081\.top$",
+]
 
 # 允许的请求头
 CORS_ALLOW_HEADERS = [

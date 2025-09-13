@@ -3,7 +3,7 @@ import { Container, Row, Col, Card } from 'react-bootstrap'
 import Sidebar from './Partials/Sidebar'
 import Header from './Partials/Header'
 import { createAuthenticatedAxios } from '@/api/axios'
-import { getCurrentTeacherId } from '@/api/constants'
+import { getCurrentTeacherId, MEDIA_BASE_URL } from '@/api/constants'
 import type { TeacherStudentList } from '@/types'
 import { FaMapPin } from 'react-icons/fa'
 import dayjs from 'dayjs'
@@ -54,7 +54,7 @@ function Students() {
                         <Card.Body>
                           <div className="text-center">
                             <img
-                              src={'http://127.0.0.1:8000'+student.image}
+                              src={MEDIA_BASE_URL + student.image}
                               className="rounded-circle avatar-xl mb-3"
                               style={{
                                 width: "70px",
