@@ -61,7 +61,7 @@ jobs:
 
     - name: Deploy to Aliyun Server
       if: github.ref == 'refs/heads/main'
-      uses: appleboy/ssh-action@v1.0.3
+      uses: appleboy/ssh-action@v1.1.0
       with:
         host: ${{ secrets.ALIYUN_HOST }}
         username: ${{ secrets.ALIYUN_USERNAME }}
