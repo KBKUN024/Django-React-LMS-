@@ -7,7 +7,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ toLower(github.repository_owner) }}/django-react-lms
+  IMAGE_NAME: kbkun024/django-react-lms
 
 jobs:
   build-and-deploy:
