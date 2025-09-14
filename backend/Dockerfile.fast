@@ -1,5 +1,5 @@
 # 超快速构建Dockerfile - 紧急备用方案
-FROM python:3.13-slim
+FROM python:3.11-slim
 
 # 最小化系统更新
 ENV PYTHONDONTWRITEBYTECODE=1 \
