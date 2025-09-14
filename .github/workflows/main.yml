@@ -89,13 +89,9 @@ jobs:
             cd /opt/lms
             echo "当前目录: $(pwd)"
 
-            # 停止旧容器并清理
+            # 停止旧容器
             echo "停止旧容器..."
             docker-compose -f docker-compose.yml down || true
-
-            # 清理可能损坏的镜像
-            echo "清理旧镜像..."
-            docker rmi lms-backend:latest lms-frontend:latest || true
 
             # 配置Docker使用加速镜像源
             echo "配置Docker镜像加速..."
@@ -114,7 +110,7 @@ jobs:
               docker pull ghcr.io/kbkun024/django-react-lms-backend:latest && \
               docker tag ghcr.io/kbkun024/django-react-lms-backend:latest lms-backend:latest || {
                 echo "镜像拉取失败，使用本地构建..."
-                docker build --progress=plain -t lms-backend:latest -f backend/Dockerfile .
+                docker build --progress=plain -t lms-backend:latest -f backend/Dockerfile.server .
               }
             }
 
@@ -124,7 +120,7 @@ jobs:
               docker pull ghcr.io/kbkun024/django-react-lms-frontend:latest && \
               docker tag ghcr.io/kbkun024/django-react-lms-frontend:latest lms-frontend:latest || {
                 echo "镜像拉取失败，使用本地构建..."
-                docker build --progress=plain -t lms-frontend:latest -f frontend/frontend/Dockerfile .
+                docker build --progress=plain -t lms-frontend:latest -f frontend/frontend/Dockerfile.server .
               }
             }
 
@@ -167,7 +163,8 @@ jobs:
 
             # 检查容器内文件结构
             echo "检查容器内文件结构..."
-            docker run --rm lms-backend:latest ls -la /app/ || echo "无法检查容器结构"
+            docker run --rm lms-backend:latest ls -la /app/
+            docker run --rm lms-backend:latest ls -la /app/backend/ || echo "backend目录不存在"
 
             # 检查.env文件是否能被容器读取
             echo "测试.env文件挂载..."
@@ -209,7 +206,7 @@ jobs:
               docker-compose -f docker-compose.yml down
               docker rmi lms-backend:latest || true
               echo "使用本地Dockerfile构建后端..."
-              docker build --progress=plain -t lms-backend:latest -f backend/Dockerfile .
+              docker-compose -f docker-compose.yml build backend
               echo "重新启动后端服务..."
               docker-compose -f docker-compose.yml up -d backend
               sleep 20
