@@ -218,8 +218,8 @@ jobs:
             echo "检查Django配置..."
             docker exec lms-backend python manage.py check || echo "Django配置检查失败"
             echo "检查容器内.env文件..."
-            docker exec lms-backend ls -la /app/backend/.env || echo ".env文件不存在"
-            docker exec lms-backend head -3 /app/backend/.env || echo "无法读取.env文件"
+            docker exec lms-backend ls -la /app/.env || echo ".env文件不存在"
+            docker exec lms-backend head -3 /app/.env || echo "无法读取.env文件"
 
             # 启动前端容器（确保后端已准备好）
             echo "启动前端容器..."

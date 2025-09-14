@@ -21,7 +21,7 @@ RUN pip install --upgrade pip && \
 
 # runtime stage - 最小化生产镜像
 FROM base AS runtime
-WORKDIR /app/backend
+WORKDIR /app
 
 # 安装runtime必需的工具（curl用于健康检查）
 RUN apt-get update && \
@@ -36,14 +36,14 @@ COPY --from=builder /root/.local /home/appuser/.local
 ENV PATH=/home/appuser/.local/bin:$PATH
 
 # 复制应用代码
-COPY backend/ /app/backend/
+COPY backend/ /app/
 
 # 设置环境变量
 ENV DJANGO_SETTINGS_MODULE=backend.settings \
-    PYTHONPATH=/app/backend
+    PYTHONPATH=/app
 
 # 创建必需目录并设置权限
-RUN mkdir -p /app/backend/static /app/backend/media /app/backend/staticfiles /app/backend/templates && \
+RUN mkdir -p /app/static /app/media /app/staticfiles /app/templates && \
     chown -R appuser:appuser /app
 
 # 切换到非root用户
