@@ -59,13 +59,22 @@ location /admin/ {
     proxy_set_header X-Forwarded-Host $host;
 }
 
-# 静态文件和媒体文件
+# 静态文件和媒体文件 - 直接代理到后端
 location /static/ {
     proxy_pass http://127.0.0.1:8000;
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header X-Forwarded-Proto $scheme;
+    
+    # 添加缓存头
+    expires 30d;
+    add_header Cache-Control "public, immutable";
+    
+    # 添加CORS头
+    add_header Access-Control-Allow-Origin *;
+    add_header Access-Control-Allow-Methods "GET, POST, OPTIONS";
+    add_header Access-Control-Allow-Headers "DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range";
 }
 
 location /media/ {
@@ -74,6 +83,15 @@ location /media/ {
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header X-Forwarded-Proto $scheme;
+    
+    # 添加缓存头
+    expires 7d;
+    add_header Cache-Control "public";
+    
+    # 添加CORS头
+    add_header Access-Control-Allow-Origin *;
+    add_header Access-Control-Allow-Methods "GET, POST, OPTIONS";
+    add_header Access-Control-Allow-Headers "DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range";
 }
 ```
 

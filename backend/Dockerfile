@@ -52,14 +52,23 @@ USER appuser
 # 收集静态文件
 RUN python manage.py collectstatic --noinput --clear || true
 
+# 创建启动脚本，确保每次启动都收集静态文件
+RUN echo '#!/bin/bash\n\
+set -e\n\
+echo "收集静态文件..."\n\
+python manage.py collectstatic --noinput --clear || true\n\
+echo "启动Gunicorn..."\n\
+exec gunicorn backend.wsgi:application \\\n\
+    --bind 0.0.0.0:8000 \\\n\
+    --workers 1 \\\n\
+    --worker-class sync \\\n\
+    --timeout 60 \\\n\
+    --log-level debug \\\n\
+    --access-logfile - \\\n\
+    --error-logfile -\n\
+' > /app/start.sh && chmod +x /app/start.sh
+
 EXPOSE 8000
 
-# 使用gunicorn但添加详细日志
-CMD ["gunicorn", "backend.wsgi:application", \
-     "--bind", "0.0.0.0:8000", \
-     "--workers", "1", \
-     "--worker-class", "sync", \
-     "--timeout", "60", \
-     "--log-level", "debug", \
-     "--access-logfile", "-", \
-     "--error-logfile", "-"]
+# 使用启动脚本
+CMD ["/app/start.sh"]

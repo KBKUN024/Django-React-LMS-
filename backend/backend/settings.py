@@ -59,6 +59,21 @@ DEBUG = env.bool('DEBUG', default=False)
 
 ALLOWED_HOSTS = ['lms.tyuan21081.top', 'localhost', '127.0.0.1', 'lms-backend', 'backend', 'lms-frontend']
 
+# CSRF配置 - 解决POST请求403/500错误
+CSRF_TRUSTED_ORIGINS = [
+    'https://lms.tyuan21081.top',
+    'http://lms.tyuan21081.top',
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
+    'http://localhost:8080',
+    'http://127.0.0.1:8080',
+]
+
+# 确保CSRF cookie在HTTPS下正常工作
+CSRF_COOKIE_SECURE = False  # 开发环境设为False，生产环境建议设为True
+CSRF_COOKIE_HTTPONLY = False  # 允许JavaScript访问CSRF token
+CSRF_COOKIE_SAMESITE = 'Lax'  # 允许跨站请求携带CSRF token
+
 AUTH_USER_MODEL = "userauths.User"
 # Application definition
 
@@ -162,9 +177,25 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
-STATICFILES_DIRS = [BASE_DIR / "static"]
+# 静态文件目录配置
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+    BASE_DIR / "staticfiles",  # 确保包含收集的静态文件
+]
 
+# 静态文件收集目录
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
+# 确保静态文件在DEBUG=False时也能正常工作
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+
+# 在DEBUG=False时也提供静态文件服务（用于调试）
+if not DEBUG:
+    # 添加静态文件URL模式
+    STATICFILES_DIRS = [
+        BASE_DIR / "static",
+        BASE_DIR / "staticfiles",
+    ]
 
 # 确保静态文件查找器包含所有必要的查找器
 STATICFILES_FINDERS = [
