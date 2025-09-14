@@ -51,7 +51,7 @@ services:
   frontend:
     build:
       context: .
-      dockerfile: frontend/frontend/Dockerfile.server
+      dockerfile: frontend/frontend/Dockerfile
     image: lms-frontend:latest
     container_name: lms-frontend
     ports:

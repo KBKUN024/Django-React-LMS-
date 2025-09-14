@@ -35,6 +35,8 @@ ENV PATH=/root/.local/bin:$PATH
 
 # 复制应用代码
 COPY backend/ /app/
+# 调试：确认文件复制正确
+RUN echo "文件复制完成，检查关键文件:" && ls -la /app/manage.py /app/backend/settings.py
 
 # 设置环境变量
 ENV DJANGO_SETTINGS_MODULE=backend.settings \
@@ -51,7 +53,15 @@ RUN echo '#!/bin/bash\n\
 set -e\n\
 cd /app\n\
 echo "当前目录: $(pwd)"\n\
-echo "检查管理脚本: $(ls -la manage.py 2>/dev/null || echo "manage.py不存在")"\n\
+echo "检查文件结构..."\n\
+ls -la /app/\n\
+echo "检查manage.py文件..."\n\
+if [ ! -f "/app/manage.py" ]; then\n\
+    echo "错误: manage.py文件不存在!"\n\
+    echo "容器内文件列表:"\n\
+    find /app -name "*.py" | head -10\n\
+    exit 1\n\
+fi\n\
 echo "检查数据库权限..."\n\
 if [ -f "/app/db.sqlite3" ]; then\n\
     echo "数据库文件已存在，设置权限为666..."\n\

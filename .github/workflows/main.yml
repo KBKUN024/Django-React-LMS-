@@ -110,7 +110,7 @@ jobs:
               docker pull ghcr.io/kbkun024/django-react-lms-backend:latest && \
               docker tag ghcr.io/kbkun024/django-react-lms-backend:latest lms-backend:latest || {
                 echo "镜像拉取失败，使用本地构建..."
-                docker build --progress=plain -t lms-backend:latest -f backend/Dockerfile.server .
+                docker build --progress=plain -t lms-backend:latest -f backend/Dockerfile .
               }
             }
 
@@ -120,7 +120,7 @@ jobs:
               docker pull ghcr.io/kbkun024/django-react-lms-frontend:latest && \
               docker tag ghcr.io/kbkun024/django-react-lms-frontend:latest lms-frontend:latest || {
                 echo "镜像拉取失败，使用本地构建..."
-                docker build --progress=plain -t lms-frontend:latest -f frontend/frontend/Dockerfile.server .
+                docker build --progress=plain -t lms-frontend:latest -f frontend/frontend/Dockerfile .
               }
             }
 
