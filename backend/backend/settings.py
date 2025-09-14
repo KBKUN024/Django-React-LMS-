@@ -20,8 +20,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 env = Env()
 # 读取环境变量，支持多个可能的.env文件位置
 env_paths = [
-    BASE_DIR.parent / '.env',  # Docker挂载的.env文件
-    BASE_DIR / '.env',         # 项目根目录的.env文件
+    BASE_DIR / '.env',         # backend目录的.env文件（Docker挂载位置）
+    BASE_DIR.parent / '.env',  # 项目根目录的.env文件
     '.env'                     # 当前工作目录的.env文件
 ]
 
