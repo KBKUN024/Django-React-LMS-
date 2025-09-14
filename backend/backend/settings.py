@@ -14,10 +14,26 @@ from pathlib import Path
 from datetime import timedelta
 from environs import Env
 
-env = Env()
-env.read_env()  # 读取环境变量
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+env = Env()
+# 读取环境变量，支持多个可能的.env文件位置
+env_paths = [
+    BASE_DIR.parent / '.env',  # Docker挂载的.env文件
+    BASE_DIR / '.env',         # 项目根目录的.env文件
+    '.env'                     # 当前工作目录的.env文件
+]
+
+for env_path in env_paths:
+    try:
+        env.read_env(env_path)
+        print(f"Successfully loaded .env from: {env_path}")
+        break
+    except:
+        continue
+else:
+    print("Warning: No .env file found, using system environment variables only")
 
 
 # Quick-start development settings - unsuitable for production

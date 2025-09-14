@@ -154,7 +154,13 @@ jobs:
             PAYPAL_RECEIVER_EMAIL=${{secrets.PAYPAL_RECEIVER_EMAIL}}
             PAYPAL_TEST=True
             EOF
-
+            
+            # 验证.env文件创建
+            echo "验证.env文件内容..."
+            ls -la .env
+            echo "前几行内容："
+            head -5 .env
+            
             # 只启动后端服务
             echo "启动后端服务..."
             docker-compose -f docker-compose.yml up -d backend
