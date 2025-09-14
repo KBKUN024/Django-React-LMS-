@@ -52,9 +52,17 @@ USER appuser
 # 收集静态文件
 RUN python manage.py collectstatic --noinput --clear || true
 
-# 创建启动脚本，确保每次启动都收集静态文件
+# 创建启动脚本，确保每次启动都收集静态文件和检查数据库权限
 RUN echo '#!/bin/bash\n\
 set -e\n\
+echo "检查数据库权限..."\n\
+if [ -f "/app/db.sqlite3" ]; then\n\
+    echo "数据库文件已存在，检查权限..."\n\
+    chmod 666 /app/db.sqlite3 || echo "警告：无法更改数据库权限"\n\
+else\n\
+    echo "数据库文件不存在，运行迁移..."\n\
+    python manage.py migrate || echo "警告：迁移失败"\n\
+fi\n\
 echo "收集静态文件..."\n\
 python manage.py collectstatic --noinput --clear || true\n\
 echo "启动Gunicorn..."\n\

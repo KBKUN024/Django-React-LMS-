@@ -10,10 +10,17 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class CustomCsrfMiddleware(MiddlewareMixin):
+class CustomCsrfMiddleware:
     """
     自定义CSRF中间件，豁免API请求的CSRF检查
     """
+
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        response = self.get_response(request)
+        return response
 
     def process_view(self, request, callback, callback_args, callback_kwargs):
         try:
@@ -22,7 +29,7 @@ class CustomCsrfMiddleware(MiddlewareMixin):
                 return None
 
             # 对于其他请求，使用默认的CSRF检查
-            csrf_middleware = CsrfViewMiddleware()
+            csrf_middleware = CsrfViewMiddleware(self.get_response)
             return csrf_middleware.process_view(request, callback, callback_args, callback_kwargs)
         except Exception as e:
             logger.error(f"CSRF middleware error: {e}")
