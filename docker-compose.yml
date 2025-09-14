@@ -8,7 +8,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - DJANGO_SETTINGS_MODULE=backend/backend.settings
+      - DJANGO_SETTINGS_MODULE=backend.backend.settings
       - PYTHONPATH=/app
       - SECRET_KEY=${SECRET_KEY}
       - DEBUG=False
@@ -20,13 +20,28 @@ services:
       - EMAIL_USE_SSL=${EMAIL_USE_SSL}
       - EMAIL_HOST_USER=${EMAIL_HOST_USER}
       - EMAIL_HOST_PASSWORD=${EMAIL_HOST_PASSWORD}
+      - BREVO_API_KEY=${BREVO_API_KEY}
       - FRONTEND_SITE_URL=https://lms.tyuan21081.top
+      - SITE_URL=https://lms.tyuan21081.top
+      - ALIPAY_SERVER_URL=${ALIPAY_SERVER_URL}
+      - ALIPAY_APP_ID=${ALIPAY_APP_ID}
+      - ALIPAY_APP_PRIVATE_KEY=${ALIPAY_APP_PRIVATE_KEY}
+      - ALIPAY_PUBLIC_KEY=${ALIPAY_PUBLIC_KEY}
+      - ALIPAY_RETURN_URL=${ALIPAY_RETURN_URL}
+      - ALIPAY_NOTIFY_URL=${ALIPAY_NOTIFY_URL}
+      - ALIPAY_SELLER_Id=${ALIPAY_SELLER_Id}
+      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
+      - STRIPE_PUBLIC_KEY=${STRIPE_PUBLIC_KEY}
+      - PAYPAL_CLIENT_ID=${PAYPAL_CLIENT_ID}
+      - PAYPAL_SECRET_ID=${PAYPAL_SECRET_ID}
+      - PAYPAL_RECEIVER_EMAIL=${PAYPAL_RECEIVER_EMAIL}
+      - PAYPAL_TEST=${PAYPAL_TEST}
     volumes:
       # 持久化媒体文件和数据库
       - ./backend/media:/app/media
       - ./backend/db.sqlite3:/app/db.sqlite3
       # 挂载.env文件到Django项目根目录
-      - ./.env:/app/.env
+      - ./.env:/app/backend/.env
       # 使用命名卷存储静态文件，避免污染宿主机
       # - backend_staticfiles:/app/staticfiles
     networks:

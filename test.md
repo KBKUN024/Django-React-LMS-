@@ -1,210 +1,351 @@
- => => extracting sha256:b2feff975e6dd2ebaf182772fb9ee26274648387b061e821e0bb5026735dd094                                                                                 1.4s
- => => extracting sha256:3675cac5502bd5a12d0d0087f64ccd38de879fb730b38470a4714edfa3da4699                                                                                 0.1s
- => => extracting sha256:87104540c7dd1ad74d6c46fc47af98e48a13ac8cdb1e5a63d498bba70d88e87c                                                                                 0.7s
- => => extracting sha256:8a169d42b20af852ea1af256db44dec4e7882718377eaab1ad7364f3b653cb4b                                                                                 0.0s
- => [backend internal] load build context                                                                                                                                 9.8s
- => => transferring context: 627.12MB                                                                                                                                     9.8s
- => [frontend build 1/7] FROM docker.io/library/node:20-alpine@sha256:eabac870db94f7342d6c33560d6613f188bbcf4bbe1f4eb47d5e2a08e1a37722                                   10.2s
- => => resolve docker.io/library/node:20-alpine@sha256:eabac870db94f7342d6c33560d6613f188bbcf4bbe1f4eb47d5e2a08e1a37722                                                   0.0s
- => => sha256:dc51168f088b66e2048a9c64d8069ced46324ea6d4026a6a094511bd04ff625c 6.44kB / 6.44kB                                                                            0.0s
- => => sha256:eabac870db94f7342d6c33560d6613f188bbcf4bbe1f4eb47d5e2a08e1a37722 7.67kB / 7.67kB                                                                            0.0s
- => => sha256:76194b803ea265cd3e41a3c23220344e58bf4820cba8e72f81ce4f0ec95572e3 1.72kB / 1.72kB                                                                            0.0s
- => => sha256:5a8e8228254a218fbf68fbf8d7093ea99dfce63dd0a72ad0cc8be65e6da3f7c8 42.43MB / 42.43MB                                                                          9.4s
- => => sha256:c149c7c96aa9b49de8c5de3415d3692e81ced50773077ea0be1a0f3f36032234 1.26MB / 1.26MB                                                                            7.2s
- => => sha256:127c05f5df6b075d5c314444a05d3de523268e2de5e9b235e7ba72aa60ed3c61 446B / 446B                                                                                7.3s
- => => extracting sha256:5a8e8228254a218fbf68fbf8d7093ea99dfce63dd0a72ad0cc8be65e6da3f7c8                                                                                 0.7s
- => => extracting sha256:c149c7c96aa9b49de8c5de3415d3692e81ced50773077ea0be1a0f3f36032234                                                                                 0.0s
- => => extracting sha256:127c05f5df6b075d5c314444a05d3de523268e2de5e9b235e7ba72aa60ed3c61                                                                                 0.0s
- => [frontend internal] load build context                                                                                                                                5.8s
- => => transferring context: 388.41MB                                                                                                                                     5.6s
- => [frontend runtime 1/3] FROM docker.io/library/nginx:alpine@sha256:42a516af16b852e33b7682d5ef8acbd5d13fe08fecadc7ed98605ba5e3b26ab8                                   12.8s
- => => resolve docker.io/library/nginx:alpine@sha256:42a516af16b852e33b7682d5ef8acbd5d13fe08fecadc7ed98605ba5e3b26ab8                                                     0.0s
- => => sha256:35f3cbee4fb77c3efb39f2723a21ce181906139442a37de8ffc52d89641d9936 10.80kB / 10.80kB                                                                          0.0s
- => => sha256:42a516af16b852e33b7682d5ef8acbd5d13fe08fecadc7ed98605ba5e3b26ab8 10.33kB / 10.33kB                                                                          0.0s
- => => sha256:77d740efa8f9c4753f2a7212d8422b8c77411681971f400ea03d07fe38476cac 2.50kB / 2.50kB                                                                            0.0s
- => => sha256:49f3b06c840fcb4c48cf9bfe1da039269b88c682942434e2bf8b266d3acdd4fd 1.80MB / 1.80MB                                                                            9.2s
- => => sha256:04ba7957f9d23b5a6073e2690367274e07226e16229a3874c65e854a457ca4d2 627B / 627B                                                                                9.3s
- => => extracting sha256:49f3b06c840fcb4c48cf9bfe1da039269b88c682942434e2bf8b266d3acdd4fd                                                                                 0.0s
- => => sha256:6156ecb6dfff3c433e78d41dab6d6dd7d2c5c759f6faebb49c0b6bc04874509b 953B / 953B                                                                                9.7s
- => => extracting sha256:04ba7957f9d23b5a6073e2690367274e07226e16229a3874c65e854a457ca4d2                                                                                 0.0s
- => => sha256:0bc2f07fbf03f53f2569fbdf75ab4c409fbde0d5ab4b4a6d49e8bfbd41577b76 403B / 403B                                                                                9.8s
- => => sha256:6c2c01fdb0949fef1a50f981f1c837eb1076c7731fbbcc3382fe699c33f232c6 1.21kB / 1.21kB                                                                           10.0s
- => => extracting sha256:6156ecb6dfff3c433e78d41dab6d6dd7d2c5c759f6faebb49c0b6bc04874509b                                                                                 0.0s
- => => sha256:66ce170f7dd87f4ee563e53b9f099a4e295f5e52cd580b4b84df4d3879c41486 1.40kB / 1.40kB                                                                           10.2s
- => => extracting sha256:0bc2f07fbf03f53f2569fbdf75ab4c409fbde0d5ab4b4a6d49e8bfbd41577b76                                                                                 0.0s
- => => sha256:021cb5923c0e90937539b3bc922d668109e6fa19b27d1e67bf0d6cb84cbc94d8 16.99MB / 16.99MB                                                                         12.5s
- => => extracting sha256:6c2c01fdb0949fef1a50f981f1c837eb1076c7731fbbcc3382fe699c33f232c6                                                                                 0.0s
- => => extracting sha256:66ce170f7dd87f4ee563e53b9f099a4e295f5e52cd580b4b84df4d3879c41486                                                                                 0.0s
- => => extracting sha256:021cb5923c0e90937539b3bc922d668109e6fa19b27d1e67bf0d6cb84cbc94d8                                                                                 0.2s
- => [backend base 2/2] WORKDIR /app                                                                                                                                       0.7s
- => [backend builder 1/4] RUN apt-get update && apt-get install -y build-essential && rm -rf /var/lib/apt/lists/*                                                       130.0s
- => [backend runtime 1/7] RUN adduser --disabled-password --gecos '' appuser                                                                                              0.3s
- => [backend runtime 2/7] WORKDIR /app                                                                                                                                    0.0s
- => [frontend build 2/7] WORKDIR /app                                                                                                                                     0.0s
- => [frontend build 3/7] COPY frontend/frontend/package.json frontend/frontend/pnpm-lock.yaml ./                                                                          0.0s
- => [frontend build 4/7] RUN npm install -g pnpm                                                                                                                          4.3s
- => [frontend build 5/7] RUN pnpm install                                                                                                                                11.7s
- => [frontend build 6/7] COPY frontend/frontend/ /app/                                                                                                                    2.3s
- => [frontend build 7/7] RUN pnpm run build                                                                                                                               7.9s
- => [frontend runtime 2/3] COPY --from=build /app/dist /usr/share/nginx/html                                                                                              0.0s
- => [frontend runtime 3/3] COPY docker/nginx/frontend.conf /etc/nginx/conf.d/default.conf                                                                                 0.0s
- => [frontend] exporting to image                                                                                                                                         0.0s
- => => exporting layers                                                                                                                                                   0.0s
- => => writing image sha256:ddac28d95cb91dcb268f4ead999eecd2be0f9ead4ee4635d4b1fb9773e3ef1c8                                                                              0.0s
- => => naming to docker.io/library/lms-frontend:latest                                                                                                                    0.0s
- => [frontend] resolving provenance for metadata file                                                                                                                     0.0s
- => [backend builder 2/4] COPY backend/requirements.txt ./                                                                                                                0.0s
- => ERROR [backend builder 3/4] RUN pip install --upgrade pip && pip install -r requirements.txt                                                                         36.6s
-------
- > [backend builder 3/4] RUN pip install --upgrade pip && pip install -r requirements.txt:
-0.630 Requirement already satisfied: pip in /usr/local/lib/python3.13/site-packages (25.2)
-3.499 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
-7.298 Collecting alipay-sdk-python==3.7.752 (from -r requirements.txt (line 1))
-9.044   Downloading alipay_sdk_python-3.7.752-py3-none-any.whl.metadata (9.1 kB)
-9.343 Collecting asgiref==3.8.1 (from -r requirements.txt (line 2))
-9.541   Downloading asgiref-3.8.1-py3-none-any.whl.metadata (9.3 kB)
-10.42 Collecting boto3==1.20.26 (from -r requirements.txt (line 3))
-10.62   Downloading boto3-1.20.26-py3-none-any.whl.metadata (6.5 kB)
-11.12 Collecting botocore==1.23.54 (from -r requirements.txt (line 4))
-11.32   Downloading botocore-1.23.54-py3-none-any.whl.metadata (5.8 kB)
-11.57 Collecting certifi==2023.11.17 (from -r requirements.txt (line 5))
-11.76   Downloading certifi-2023.11.17-py3-none-any.whl.metadata (2.2 kB)
-12.04 Collecting cffi==1.17.1 (from -r requirements.txt (line 6))
-12.24   Downloading cffi-1.17.1-cp313-cp313-manylinux_2_17_aarch64.manylinux2014_aarch64.whl.metadata (1.5 kB)
-12.50 Collecting charset-normalizer==3.3.2 (from -r requirements.txt (line 7))
-13.07   Downloading charset_normalizer-3.3.2-py3-none-any.whl.metadata (33 kB)
-13.55 Collecting cryptography==41.0.7 (from -r requirements.txt (line 8))
-13.75   Downloading cryptography-41.0.7-cp37-abi3-manylinux_2_28_aarch64.whl.metadata (5.2 kB)
-13.97 Collecting decorator==5.2.1 (from -r requirements.txt (line 9))
-14.17   Downloading decorator-5.2.1-py3-none-any.whl.metadata (3.9 kB)
-14.38 Collecting defusedxml==0.7.1 (from -r requirements.txt (line 10))
-14.58   Downloading defusedxml-0.7.1-py2.py3-none-any.whl.metadata (32 kB)
-15.01 Collecting dj-database-url==2.1.0 (from -r requirements.txt (line 11))
-15.21   Downloading dj_database_url-2.1.0-py3-none-any.whl.metadata (11 kB)
-15.47 Collecting Django==5.1.4 (from -r requirements.txt (line 12))
-15.84   Downloading Django-5.1.4-py3-none-any.whl.metadata (4.2 kB)
-16.05 Collecting django-anymail==13.0.1 (from -r requirements.txt (line 13))
-16.26   Downloading django_anymail-13.0.1-py3-none-any.whl.metadata (11 kB)
-16.63 Collecting django-ckeditor-5==0.2.18 (from -r requirements.txt (line 14))
-16.84   Downloading django_ckeditor_5-0.2.18-py3-none-any.whl.metadata (15 kB)
-17.07 Collecting django-cors-headers==3.14.0 (from -r requirements.txt (line 15))
-17.28   Downloading django_cors_headers-3.14.0-py3-none-any.whl.metadata (17 kB)
-17.51 Collecting django-jazzmin==3.0.0 (from -r requirements.txt (line 16))
-17.87   Downloading django_jazzmin-3.0.0-py3-none-any.whl.metadata (6.2 kB)
-18.08 Collecting django-storages==1.12.3 (from -r requirements.txt (line 17))
-18.26   Downloading django_storages-1.12.3-py3-none-any.whl.metadata (54 kB)
-18.70 Collecting djangorestframework==3.14.0 (from -r requirements.txt (line 18))
-18.90   Downloading djangorestframework-3.14.0-py3-none-any.whl.metadata (10 kB)
-19.27 Collecting djangorestframework_simplejwt==5.5.1 (from -r requirements.txt (line 19))
-19.48   Downloading djangorestframework_simplejwt-5.5.1-py3-none-any.whl.metadata (4.6 kB)
-19.86 Collecting drf-yasg==1.21.7 (from -r requirements.txt (line 20))
-20.05   Downloading drf_yasg-1.21.7-py3-none-any.whl.metadata (16 kB)
-20.29 Collecting environs==10.0.0 (from -r requirements.txt (line 21))
-20.50   Downloading environs-10.0.0-py3-none-any.whl.metadata (13 kB)
-20.72 Collecting gunicorn==21.2.0 (from -r requirements.txt (line 22))
-20.91   Downloading gunicorn-21.2.0-py3-none-any.whl.metadata (4.1 kB)
-21.13 Collecting idna==3.6 (from -r requirements.txt (line 23))
-21.33   Downloading idna-3.6-py3-none-any.whl.metadata (9.9 kB)
-21.56 Collecting imageio==2.37.0 (from -r requirements.txt (line 24))
-21.76   Downloading imageio-2.37.0-py3-none-any.whl.metadata (5.2 kB)
-21.98 Collecting imageio-ffmpeg==0.6.0 (from -r requirements.txt (line 25))
-22.18   Downloading imageio_ffmpeg-0.6.0-py3-none-manylinux2014_aarch64.whl.metadata (1.5 kB)
-22.77 Collecting inflection==0.5.1 (from -r requirements.txt (line 26))
-22.97   Downloading inflection-0.5.1-py2.py3-none-any.whl.metadata (1.7 kB)
-23.19 Collecting jmespath==0.10.0 (from -r requirements.txt (line 27))
-23.39   Downloading jmespath-0.10.0-py2.py3-none-any.whl.metadata (8.0 kB)
-24.37 Collecting markdown-it-py==4.0.0 (from -r requirements.txt (line 28))
-24.57   Downloading markdown_it_py-4.0.0-py3-none-any.whl.metadata (7.3 kB)
-24.81 Collecting marshmallow==3.20.1 (from -r requirements.txt (line 29))
-25.01   Downloading marshmallow-3.20.1-py3-none-any.whl.metadata (7.8 kB)
-25.23 Collecting mdurl==0.1.2 (from -r requirements.txt (line 30))
-25.81   Downloading mdurl-0.1.2-py3-none-any.whl.metadata (1.6 kB)
-26.02 Collecting moviepy==2.1.2 (from -r requirements.txt (line 31))
-26.22   Downloading moviepy-2.1.2-py3-none-any.whl.metadata (6.9 kB)
-26.55 Collecting numpy==2.3.2 (from -r requirements.txt (line 32))
-26.75   Downloading numpy-2.3.2-cp313-cp313-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl.metadata (62 kB)
-27.05 Collecting oauthlib==3.3.1 (from -r requirements.txt (line 33))
-27.26   Downloading oauthlib-3.3.1-py3-none-any.whl.metadata (7.9 kB)
-27.83 Collecting packaging==23.2 (from -r requirements.txt (line 34))
-28.03   Downloading packaging-23.2-py3-none-any.whl.metadata (3.2 kB)
-28.34 Collecting pillow==10.4.0 (from -r requirements.txt (line 35))
-28.52   Downloading pillow-10.4.0-cp313-cp313-manylinux_2_28_aarch64.whl.metadata (9.2 kB)
-28.72 Collecting proglog==0.1.12 (from -r requirements.txt (line 36))
-28.91   Downloading proglog-0.1.12-py3-none-any.whl.metadata (794 bytes)
-29.15 Collecting psycopg2==2.9.10 (from -r requirements.txt (line 37))
-29.56   Downloading psycopg2-2.9.10.tar.gz (385 kB)
-29.78   Installing build dependencies: started
-34.72   Installing build dependencies: finished with status 'done'
-34.72   Getting requirements to build wheel: started
-35.03   Getting requirements to build wheel: finished with status 'error'
-35.03   error: subprocess-exited-with-error
-35.03   
-35.03   × Getting requirements to build wheel did not run successfully.
-35.03   │ exit code: 1
-35.03   ╰─> [34 lines of output]
-35.03       /tmp/pip-build-env-qf__h11q/overlay/lib/python3.13/site-packages/setuptools/dist.py:759: SetuptoolsDeprecationWarning: License classifiers are deprecated.
-35.03       !!
-35.03       
-35.03               ********************************************************************************
-35.03               Please consider removing the following classifiers in favor of a SPDX license expression:
-35.03       
-35.03               License :: OSI Approved :: GNU Library or Lesser General Public License (LGPL)
-35.03       
-35.03               See https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#license for details.
-35.03               ********************************************************************************
-35.03       
-35.03       !!
-35.03         self._finalize_license_expression()
-35.03       running egg_info
-35.03       writing psycopg2.egg-info/PKG-INFO
-35.03       writing dependency_links to psycopg2.egg-info/dependency_links.txt
-35.03       writing top-level names to psycopg2.egg-info/top_level.txt
-35.03       
-35.03       Error: pg_config executable not found.
-35.03       
-35.03       pg_config is required to build psycopg2 from source.  Please add the directory
-35.03       containing pg_config to the $PATH or specify the full executable path with the
-35.03       option:
-35.03       
-35.03           python setup.py build_ext --pg-config /path/to/pg_config build ...
-35.03       
-35.03       or with the pg_config option in 'setup.cfg'.
-35.03       
-35.03       If you prefer to avoid building psycopg2 from source, please install the PyPI
-35.03       'psycopg2-binary' package instead.
-35.03       
-35.03       For further information please check the 'doc/src/install.rst' file (also at
-35.03       <https://www.psycopg.org/docs/install.html>).
-35.03       
-35.03       [end of output]
-35.03   
-35.03   note: This error originates from a subprocess, and is likely not a problem with pip.
-36.52 error: subprocess-exited-with-error
-36.52 
-36.52 × Getting requirements to build wheel did not run successfully.
-36.52 │ exit code: 1
-36.52 ╰─> See above for output.
-36.52 
-36.52 note: This error originates from a subprocess, and is likely not a problem with pip.
-------
-Dockerfile:12
+======CMD======
+set -e
+echo "开始部署..."
 
---------------------
+# 进入项目目录
+cd /opt/lms
+echo "当前目录: $(pwd)"
 
-  10 |     RUN apt-get update && apt-get install -y build-essential && rm -rf /var/lib/apt/lists/*
+# 停止旧容器
+echo "停止旧容器..."
+docker-compose -f docker-compose.yml down || true
 
-  11 |     COPY backend/requirements.txt ./
+# 配置Docker使用加速镜像源
+echo "配置Docker镜像加速..."
+sudo mkdir -p /etc/docker
+echo '{
+  "registry-mirrors": ["https://4w36ujeoko5joi-ghcr.xuanyuan.run"],
+  "insecure-registries": ["4w36ujeoko5joi-ghcr.xuanyuan.run"]
+}' | sudo tee /etc/docker/daemon.json
+sudo systemctl restart docker || true
 
-  12 | >>> RUN pip install --upgrade pip && pip install -r requirements.txt
+# 拉取预构建镜像（优先使用加速域名）
+echo "拉取预构建镜像..."
+docker pull 4w36ujeoko5joi-ghcr.xuanyuan.run/kbkun024/django-react-lms-backend:latest && \
+docker tag 4w36ujeoko5joi-ghcr.xuanyuan.run/kbkun024/django-react-lms-backend:latest lms-backend:latest || {
+  echo "加速域名拉取失败，尝试直接拉取..."
+  docker pull ghcr.io/kbkun024/django-react-lms-backend:latest && \
+  docker tag ghcr.io/kbkun024/django-react-lms-backend:latest lms-backend:latest || {
+    echo "镜像拉取失败，使用本地构建..."
+    docker build --progress=plain -t lms-backend:latest -f backend/Dockerfile.server .
+  }
+}
 
-  13 |     COPY backend/ /app/
+docker pull 4w36ujeoko5joi-ghcr.xuanyuan.run/kbkun024/django-react-lms-frontend:latest && \
+docker tag 4w36ujeoko5joi-ghcr.xuanyuan.run/kbkun024/django-react-lms-frontend:latest lms-frontend:latest || {
+  echo "加速域名拉取失败，尝试直接拉取..."
+  docker pull ghcr.io/kbkun024/django-react-lms-frontend:latest && \
+  docker tag ghcr.io/kbkun024/django-react-lms-frontend:latest lms-frontend:latest || {
+    echo "镜像拉取失败，使用本地构建..."
+    docker build --progress=plain -t lms-frontend:latest -f frontend/frontend/Dockerfile.server .
+  }
+}
 
-  14 |     
+# 创建环境变量文件
+echo "创建环境变量文件..."
+cat > .env << EOF
+SECRET_KEY=***
+DEBUG=False
+DJANGO_DEV_MODE=True
+DEFAULT_FROM_EMAIL=***
+SERVER_EMAIL=***
+EMAIL_HOST=***
+EMAIL_PORT=465
+EMAIL_USE_SSL=True
+EMAIL_HOST_USER=***
+EMAIL_HOST_PASSWORD=***
+BREVO_API_KEY = ***
+FRONTEND_SITE_URL=https://lms.tyuan21081.top
+SITE_URL=https://lms.tyuan21081.top
+ALIPAY_SERVER_URL=https://openapi-sandbox.dl.alipaydev.com/gateway.do
+ALIPAY_APP_ID=***
+ALIPAY_APP_PRIVATE_KEY=***
+ALIPAY_PUBLIC_KEY=***
+ALIPAY_RETURN_URL=https://lms.tyuan21081.top/payment/return
+ALIPAY_NOTIFY_URL=https://lms.tyuan21081.top/payment/notify
+ALIPAY_SELLER_Id=***
+STRIPE_SECRET_KEY=***
+STRIPE_PUBLIC_KEY=***
+PAYPAL_CLIENT_ID=***
+PAYPAL_SECRET_ID=***
+PAYPAL_RECEIVER_EMAIL=***
+PAYPAL_TEST=True
+EOF
 
---------------------
+# 验证.env文件创建
+echo "验证.env文件内容..."
+ls -la .env
+echo "前几行内容："
+head -5 .env
 
-target backend: failed to solve: process "/bin/sh -c pip install --upgrade pip && pip install -r requirements.txt" did not complete successfully: exit code: 1
+# 检查容器内文件结构
+echo "检查容器内文件结构..."
+docker run --rm lms-backend:latest ls -la /app/
+docker run --rm lms-backend:latest ls -la /app/backend/ || echo "backend目录不存在"
 
+# 检查.env文件是否能被容器读取
+echo "测试.env文件挂载..."
+docker run --rm -v $(pwd)/.env:/opt/lms/.env lms-backend:latest cat /opt/lms/.env | head -3 || echo ".env文件挂载失败"
 
+# 只启动后端服务
+echo "启动后端服务..."
+docker-compose -f docker-compose.yml up -d backend
 
-View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/idevo52yq5s8zc1hncx3bdgm4
+# 等待容器启动并初始化
+echo "等待容器启动和初始化..."
+sleep 15
+
+# 立即检查后端容器日志
+echo "检查后端启动日志..."
+docker-compose -f docker-compose.yml logs backend --tail=30
+
+# 检查后端是否正在运行
+echo "检查后端容器状态..."
+docker ps -a | grep lms-backend
+
+# 检查后端容器是否正在运行
+echo "检查后端容器运行状态..."
+backend_running=false
+for i in {1..3}; do
+  if docker ps | grep -q "lms-backend.*Up"; then
+    echo "后端容器正在运行！"
+    backend_running=true
+    break
+  else
+    echo "等待后端容器启动... ($i/3)"
+    sleep 10
+  fi
+done
+
+# 如果后端容器启动失败，尝试本地构建
+if [ "$backend_running" = false ]; then
+  echo "预构建镜像启动失败，停止容器并使用本地构建..."
+  docker-compose -f docker-compose.yml down
+  docker rmi lms-backend:latest || true
+  echo "使用本地Dockerfile构建后端..."
+  docker-compose -f docker-compose.yml build backend
+  echo "重新启动后端服务..."
+  docker-compose -f docker-compose.yml up -d backend
+  sleep 20
+  echo "检查本地构建的后端状态..."
+  docker-compose -f docker-compose.yml logs backend --tail=20
+fi
+
+# 检查Django配置和环境变量
+echo "检查Django配置..."
+docker exec lms-backend sh -c "cd backend && python manage.py check" || echo "Django配置检查失败"
+echo "检查容器内.env文件..."
+docker exec lms-backend ls -la /app/backend/.env || echo ".env文件不存在"
+docker exec lms-backend head -3 /app/backend/.env || echo "无法读取.env文件"
+
+# 启动前端容器（确保后端已准备好）
+echo "启动前端容器..."
+docker-compose -f docker-compose.yml up -d frontend
+
+# 检查启动状态
+echo "检查容器状态..."
+docker-compose -f docker-compose.yml ps
+
+# 检查后端容器日志
+echo "检查后端容器日志..."
+docker-compose -f docker-compose.yml logs backend --tail=20
+
+# 测试后端API是否可访问
+echo "测试后端API..."
+docker exec lms-backend curl -f http://localhost:8000/ || echo "API暂时不可访问，但容器正在运行"
+
+# 检查所有容器日志
+echo "检查所有容器日志..."
+docker-compose -f docker-compose.yml logs --tail=10
+
+echo "部署完成！"
+
+======END======
+out: 开始部署...
+out: 当前目录: /opt/lms
+out: 停止旧容器...
+err:  Container lms-frontend  Stopping
+err:  Container lms-frontend  Stopped
+err:  Container lms-frontend  Removing
+err:  Container lms-frontend  Removed
+err:  Container lms-backend  Stopping
+err:  Container lms-backend  Stopped
+err:  Container lms-backend  Removing
+err:  Container lms-backend  Removed
+err:  Network lms-network  Removing
+err:  Network lms-network  Removed
+out: 配置Docker镜像加速...
+out: {
+out:   "registry-mirrors": ["https://4w36ujeoko5joi-ghcr.xuanyuan.run"],
+out:   "insecure-registries": ["4w36ujeoko5joi-ghcr.xuanyuan.run"]
+out: }
+out: 拉取预构建镜像...
+out: latest: Pulling from kbkun024/django-react-lms-backend
+out: ce1261c6d567: Already exists
+out: 11b89692b208: Already exists
+out: 764e05fe66b6: Already exists
+out: a4aefcec16c5: Already exists
+out: d05adfb70ad0: Pulling fs layer
+out: a34e0a800316: Pulling fs layer
+out: df66ffda895a: Pulling fs layer
+out: 26953c442622: Pulling fs layer
+out: dee2479c73a4: Pulling fs layer
+out: 161ce40f806e: Pulling fs layer
+out: 4f4fb700ef54: Pulling fs layer
+out: dee2479c73a4: Waiting
+out: 161ce40f806e: Waiting
+out: 4f4fb700ef54: Waiting
+out: 26953c442622: Waiting
+out: a34e0a800316: Verifying Checksum
+out: a34e0a800316: Download complete
+out: d05adfb70ad0: Verifying Checksum
+out: d05adfb70ad0: Download complete
+out: d05adfb70ad0: Pull complete
+out: df66ffda895a: Verifying Checksum
+out: df66ffda895a: Download complete
+out: a34e0a800316: Pull complete
+out: df66ffda895a: Pull complete
+out: dee2479c73a4: Verifying Checksum
+out: dee2479c73a4: Download complete
+out: 4f4fb700ef54: Verifying Checksum
+out: 4f4fb700ef54: Download complete
+out: 161ce40f806e: Verifying Checksum
+out: 161ce40f806e: Download complete
+out: 26953c442622: Verifying Checksum
+out: 26953c442622: Download complete
+out: 26953c442622: Pull complete
+out: dee2479c73a4: Pull complete
+out: 161ce40f806e: Pull complete
+out: 4f4fb700ef54: Pull complete
+out: Digest: sha256:33b2e1f4111f1e6618b8efc3a33b215b2ad67095a83f9bfd9fabaace542795c4
+out: Status: Downloaded newer image for 4w36ujeoko5joi-ghcr.xuanyuan.run/kbkun024/django-react-lms-backend:latest
+out: 4w36ujeoko5joi-ghcr.xuanyuan.run/kbkun024/django-react-lms-backend:latest
+out: latest: Pulling from kbkun024/django-react-lms-frontend
+out: 9824c27679d3: Already exists
+out: 6bc572a340ec: Already exists
+out: 403e3f251637: Already exists
+out: 9adfbae99cb7: Already exists
+out: 7a8a46741e18: Already exists
+out: c9ebe2ff2d2c: Already exists
+out: a992fbc61ecc: Already exists
+out: cb1ff4086f82: Already exists
+out: 8f1415090435: Pulling fs layer
+out: 884a9ba64188: Pulling fs layer
+out: 6c4bfb59f374: Pulling fs layer
+out: 884a9ba64188: Download complete
+out: 6c4bfb59f374: Verifying Checksum
+out: 8f1415090435: Verifying Checksum
+out: 8f1415090435: Download complete
+out: 8f1415090435: Pull complete
+out: 884a9ba64188: Pull complete
+out: 6c4bfb59f374: Pull complete
+out: Digest: sha256:2c3fcef36f8f808d4a6efecb65bccf4bef826cd338946853e8fbcb57c15e2ba5
+out: Status: Downloaded newer image for 4w36ujeoko5joi-ghcr.xuanyuan.run/kbkun024/django-react-lms-frontend:latest
+out: 4w36ujeoko5joi-ghcr.xuanyuan.run/kbkun024/django-react-lms-frontend:latest
+out: 创建环境变量文件...
+out: 验证.env文件内容...
+out: -rw-r--r-- 1 *** *** 3294 Sep 14 12:26 .env
+out: 前几行内容：
+out: SECRET_KEY=***
+out: DEBUG=False
+out: DJANGO_DEV_MODE=True
+out: DEFAULT_FROM_EMAIL=***
+out: SERVER_EMAIL=***
+out: 检查容器内文件结构...
+out: total 1164
+out: drwxr-xr-x 1 appuser appuser    4096 Sep 14 04:23 .
+out: drwxr-xr-x 1 ***    ***       4096 Sep 14 04:26 ..
+out: -rw-r--r-- 1 appuser appuser    6148 Sep 14 04:21 .DS_Store
+out: -rw-r--r-- 1 appuser appuser      19 Sep 14 04:21 .gitignore
+out: -rw-r--r-- 1 appuser appuser    1706 Sep 14 04:21 Dockerfile
+out: -rw-r--r-- 1 appuser appuser     825 Sep 14 04:21 Dockerfile.dev
+out: -rw-r--r-- 1 appuser appuser     845 Sep 14 04:21 Dockerfile.fast
+out: -rw-r--r-- 1 appuser appuser    1082 Sep 14 04:21 Dockerfile.optimized
+out: -rw-r--r-- 1 appuser appuser    1730 Sep 14 04:21 Dockerfile.server
+out: drwxr-xr-x 1 appuser appuser    4096 Sep 14 04:21 __pycache__
+out: drwxr-xr-x 1 appuser appuser    4096 Sep 14 04:21 api
+out: drwxr-xr-x 1 appuser appuser    4096 Sep 14 04:21 backend
+out: drwxr-xr-x 1 appuser appuser    4096 Sep 14 04:21 core
+out: -rw-r--r-- 1 appuser appuser 1105920 Sep 14 04:21 db.sqlite3
+out: drwxr-xr-x 1 appuser appuser    4096 Sep 14 04:21 media
+out: -rw-r--r-- 1 appuser appuser    1206 Sep 14 04:21 requirements.txt
+out: drwxr-xr-x 2 appuser appuser    4096 Sep 14 04:23 static
+out: drwxr-xr-x 2 appuser appuser    4096 Sep 14 04:23 staticfiles
+out: drwxr-xr-x 1 appuser appuser    4096 Sep 14 04:21 templates
+out: drwxr-xr-x 1 appuser appuser    4096 Sep 14 04:21 userauths
+out: drwxr-xr-x 1 appuser appuser    4096 Sep 14 04:21 utils
+out: total 48
+out: drwxr-xr-x 1 appuser appuser  4096 Sep 14 04:21 .
+out: drwxr-xr-x 1 appuser appuser  4096 Sep 14 04:23 ..
+out: -rw-r--r-- 1 appuser appuser  6148 Sep 14 04:21 .DS_Store
+out: -rw-r--r-- 1 appuser appuser     0 Sep 14 04:21 __init__.py
+out: drwxr-xr-x 1 appuser appuser  4096 Sep 14 04:21 __pycache__
+out: -rw-r--r-- 1 appuser appuser   391 Sep 14 04:21 asgi.py
+out: -rw-r--r-- 1 appuser appuser 13168 Sep 14 04:21 settings.py
+out: -rw-r--r-- 1 appuser appuser  2839 Sep 14 04:21 urls.py
+out: -rw-r--r-- 1 appuser appuser   391 Sep 14 04:21 wsgi.py
+out: 测试.env文件挂载...
+out: SECRET_KEY=***
+out: DEBUG=False
+out: DJANGO_DEV_MODE=True
+out: 启动后端服务...
+err:  Network lms-network  Creating
+err:  Network lms-network  Created
+err:  Container lms-backend  Creating
+err:  Container lms-backend  Created
+err:  Container lms-backend  Starting
+err:  Container lms-backend  Started
+out: 等待容器启动和初始化...
+out: 检查后端启动日志...
+out: lms-backend  |   File "/home/appuser/.local/lib/python3.11/site-packages/django/__init__.py", line 19, in setup
+out: lms-backend  |     configure_logging(settings.LOGGING_CONFIG, settings.LOGGING)
+out: lms-backend  |                       ^^^^^^^^^^^^^^^^^^^^^^^
+out: lms-backend  |   File "/home/appuser/.local/lib/python3.11/site-packages/django/conf/__init__.py", line 81, in __getattr__
+out: lms-backend  |     self._setup(name)
+out: lms-backend  |   File "/home/appuser/.local/lib/python3.11/site-packages/django/conf/__init__.py", line 68, in _setup
+out: lms-backend  |     self._wrapped = Settings(settings_module)
+out: lms-backend  |                     ^^^^^^^^^^^^^^^^^^^^^^^^^
+out: lms-backend  |   File "/home/appuser/.local/lib/python3.11/site-packages/django/conf/__init__.py", line 166, in __init__
+out: lms-backend  |     mod = importlib.import_module(self.SETTINGS_MODULE)
+out: lms-backend  |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+out: lms-backend  |   File "/usr/local/lib/python3.11/importlib/__init__.py", line 126, in import_module
+out: lms-backend  |     return _bootstrap._gcd_import(name[level:], package, level)
+out: lms-backend  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+out: lms-backend  |   File "<frozen importlib._bootstrap>", line 1204, in _gcd_import
+out: lms-backend  |   File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+out: lms-backend  |   File "<frozen importlib._bootstrap>", line 1147, in _find_and_load_unlocked
+out: lms-backend  |   File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+out: lms-backend  |   File "<frozen importlib._bootstrap_external>", line 940, in exec_module
+out: lms-backend  |   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+out: lms-backend  |   File "/app/backend/settings.py", line 359, in <module>
+out: lms-backend  |     ALIPAY_SERVER_URL = env("ALIPAY_SERVER_URL")
+out: lms-backend  |                         ^^^^^^^^^^^^^^^^^^^^^^^^
+out: lms-backend  |   File "/home/appuser/.local/lib/python3.11/site-packages/environs/__init__.py", line 116, in method
+out: lms-backend  |     raise EnvError(f'Environment variable "{proxied_key or parsed_key}" not set')
+out: lms-backend  | environs.EnvError: Environment variable "ALIPAY_SERVER_URL" not set
+out: lms-backend  | [2025-09-14 04:27:11 +0000] [7] [INFO] Worker exiting (pid: 7)
+Error: s-backend  | [2025-09-14 04:27:11 +0000] [1] [ERROR] Worker (pid:7) exited with code 3
+Error: s-backend  | [2025-09-14 04:27:11 +0000] [1] [ERROR] Shutting down: Master
+Error: s-backend  | [2025-09-14 04:27:11 +0000] [1] [ERROR] Reason: Worker failed to boot.
+out: 检查后端容器状态...
+out: 375764d2d87f   lms-backend:latest   "gunicorn backend.ws…"   16 seconds ago   Restarting (3) Less than a second ago             lms-backend
+out: 检查后端容器运行状态...
+out: 等待后端容器启动... (1/3)
+out: 等待后端容器启动... (2/3)
+out: 等待后端容器启动... (3/3)
+out: 预构建镜像启动失败，停止容器并使用本地构建...
+err:  Container lms-backend  Stopping
+err:  Container lms-backend  Stopped
+err:  Container lms-backend  Removing
+err:  Container lms-backend  Removed
+err:  Network lms-network  Removing
+err:  Network lms-network  Removed
+out: Untagged: lms-backend:latest
+out: 使用本地Dockerfile构建后端...
+out: #1 [internal] load local bake definitions
+out: #1 reading from stdin 480B done
+out: #1 DONE 0.0s
+out: #2 [internal] load build definition from Dockerfile
+out: #2 transferring dockerfile: 1.71kB done
+out: #2 DONE 0.0s
+out: #3 [internal] load metadata for docker.io/library/python:3.13-slim

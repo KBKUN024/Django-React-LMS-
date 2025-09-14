@@ -168,7 +168,7 @@ jobs:
 
             # 检查.env文件是否能被容器读取
             echo "测试.env文件挂载..."
-            docker run --rm -v $(pwd)/.env:/opt/lms/.env lms-backend:latest cat /opt/lms/.env | head -3 || echo ".env文件挂载失败"
+            docker run --rm -v $(pwd)/.env:/app/backend/.env lms-backend:latest cat /app/backend/.env | head -3 || echo ".env文件挂载失败"
 
             # 只启动后端服务
             echo "启动后端服务..."
@@ -216,7 +216,7 @@ jobs:
 
             # 检查Django配置和环境变量
             echo "检查Django配置..."
-            docker exec lms-backend sh -c "cd backend && python manage.py check" || echo "Django配置检查失败"
+            docker exec lms-backend sh -c "cd /app/backend/ && python manage.py check" || echo "Django配置检查失败"
             echo "检查容器内.env文件..."
             docker exec lms-backend ls -la /app/backend/.env || echo ".env文件不存在"
             docker exec lms-backend head -3 /app/backend/.env || echo "无法读取.env文件"
