@@ -27,13 +27,25 @@ env_paths = [
 
 for env_path in env_paths:
     try:
-        env.read_env(env_path)
-        print(f"Successfully loaded .env from: {env_path}")
-        break
-    except:
+        if env_path.exists():
+            env.read_env(env_path)
+            print(f"Successfully loaded .env from: {env_path}")
+            # 打印一些关键环境变量用于调试
+            print(f"DEBUG: SECRET_KEY exists: {'SECRET_KEY' in env}")
+            print(f"DEBUG: ALIPAY_SERVER_URL exists: {'ALIPAY_SERVER_URL' in env}")
+            break
+        else:
+            print(f"DEBUG: .env file does not exist at: {env_path}")
+    except Exception as e:
+        print(f"DEBUG: Failed to load .env from {env_path}: {e}")
         continue
 else:
     print("Warning: No .env file found, using system environment variables only")
+
+# 打印当前工作目录和BASE_DIR用于调试
+print(f"DEBUG: Current working directory: {Path.cwd()}")
+print(f"DEBUG: BASE_DIR: {BASE_DIR}")
+print(f"DEBUG: Checked env paths: {env_paths}")
 
 
 # Quick-start development settings - unsuitable for production
@@ -346,37 +358,40 @@ CORS_ALLOW_CREDENTIALS = True
 
 # QQ邮箱配置
 DEFAULT_FROM_EMAIL = env(
-    "DEFAULT_FROM_EMAIL"
+    "DEFAULT_FROM_EMAIL", default="944412796@qq.com"
 )  # 设置默认发件人地址（必须与EMAIL_HOST_USER一致）
-SERVER_EMAIL = env("SERVER_EMAIL")  # 服务器错误通知发件人
-EMAIL_HOST = env("EMAIL_HOST")
-EMAIL_PORT = env("EMAIL_PORT")
-EMAIL_USE_SSL = env("EMAIL_USE_SSL")  # QQ邮箱必须启用SSL
-EMAIL_HOST_USER = env("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+SERVER_EMAIL = env("SERVER_EMAIL", default="944412796@qq.com")  # 服务器错误通知发件人
+EMAIL_HOST = env("EMAIL_HOST", default="smtp.example.com")
+EMAIL_PORT = env("EMAIL_PORT", default=465)
+EMAIL_USE_SSL = env.bool("EMAIL_USE_SSL", default=True)  # QQ邮箱必须启用SSL
+EMAIL_HOST_USER = env("EMAIL_HOST_USER", default="")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", default="")
+BREVO_API_KEY = env("BREVO_API_KEY", default="")
 
 # 配置支付宝
-ALIPAY_SERVER_URL = env("ALIPAY_SERVER_URL")
+ALIPAY_SERVER_URL = env("ALIPAY_SERVER_URL", default="https://openapi-sandbox.dl.alipaydev.com/gateway.do")
 # 应用APPID
-ALIPAY_APP_ID = env("ALIPAY_APP_ID")
+ALIPAY_APP_ID = env("ALIPAY_APP_ID", default="")
 # 应用私钥（非JAVA语言）
-ALIPAY_APP_PRIVATE_KEY = env("ALIPAY_APP_PRIVATE_KEY")
+ALIPAY_APP_PRIVATE_KEY = env("ALIPAY_APP_PRIVATE_KEY", default="")
 # 支付宝公钥
-ALIPAY_PUBLIC_KEY = env("ALIPAY_PUBLIC_KEY")
+ALIPAY_PUBLIC_KEY = env("ALIPAY_PUBLIC_KEY", default="")
 # returnURL
-ALIPAY_RETURN_URL = env("ALIPAY_RETURN_URL")
+ALIPAY_RETURN_URL = env("ALIPAY_RETURN_URL", default="")
 # NotifyURL
-ALIPAY_NOTIFY_URL = env("ALIPAY_NOTIFY_URL")
+ALIPAY_NOTIFY_URL = env("ALIPAY_NOTIFY_URL", default="")
 # Seller_id 👉 这个就是沙箱应用信息中的：绑定的商家账号（PID）
-ALIPAY_SELLER_Id = env("ALIPAY_SELLER_Id")
+ALIPAY_SELLER_Id = env("ALIPAY_SELLER_Id", default="")
 
 # Stripe
-STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
+STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY', default="")
+STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY', default="")
 
-FRONTEND_SITE_URL = env('FRONTEND_SITE_URL')
+FRONTEND_SITE_URL = env('FRONTEND_SITE_URL', default="http://localhost:3000")
+SITE_URL = env('SITE_URL', default="http://localhost:8000")
 
 # Paypal
-PAYPAL_CLIENT_ID=env('PAYPAL_CLIENT_ID')
-PAYPAL_SECRET_ID=env('PAYPAL_SECRET_ID')
-PAYPAL_RECEIVER_EMAIL=env('PAYPAL_RECEIVER_EMAIL')
-PAYPAL_TEST=True
+PAYPAL_CLIENT_ID = env('PAYPAL_CLIENT_ID', default="")
+PAYPAL_SECRET_ID = env('PAYPAL_SECRET_ID', default="")
+PAYPAL_RECEIVER_EMAIL = env('PAYPAL_RECEIVER_EMAIL', default="")
+PAYPAL_TEST = env.bool('PAYPAL_TEST', default=True)
