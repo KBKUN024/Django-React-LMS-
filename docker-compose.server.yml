@@ -28,6 +28,8 @@ services:
       - ./backend/db.sqlite3:/app/db.sqlite3
       # 使用命名卷存储静态文件，避免污染宿主机
       - backend_staticfiles:/app/staticfiles
+    # 设置用户权限，确保容器内可以写入数据库
+    user: "0:0"  # 临时使用root权限解决数据库写入问题
     networks:
       - lms-network
     restart: unless-stopped

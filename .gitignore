@@ -26,5 +26,5 @@ baota_vhost.md
 .gitignore
 baota_vhost_fixed.md
 baota_lms_nginx.md
-backend log.md
-frontend logs.md
+# backend log.md
+# frontend logs.md
