@@ -221,9 +221,16 @@ jobs:
             docker exec lms-backend ls -la /app/.env || echo ".env文件不存在"
             docker exec lms-backend head -3 /app/.env || echo "无法读取.env文件"
 
-            # 启动前端容器（确保后端已准备好）
-            echo "启动前端容器..."
-            docker-compose -f docker-compose.yml up -d frontend
+            # 初始化SSL证书（如果不存在）
+            echo "检查SSL证书..."
+            if [ ! -f "./certbot/conf/live/lms.tyuan21081.top/fullchain.pem" ]; then
+              echo "SSL证书不存在，初始化Let's Encrypt证书..."
+              chmod +x ./init-letsencrypt.sh
+              ./init-letsencrypt.sh
+            else
+              echo "SSL证书已存在，启动前端容器..."
+              docker-compose -f docker-compose.yml up -d frontend
+            fi
 
             # 检查启动状态
             echo "检查容器状态..."
