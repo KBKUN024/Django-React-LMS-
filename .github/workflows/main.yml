@@ -127,31 +127,31 @@ jobs:
             # 创建环境变量文件
             echo "创建环境变量文件..."
             cat > .env << EOF
-            SECRET_KEY=${{SECRET_KEY}}
+            SECRET_KEY=${{secrets.SECRET_KEY}}
             DEBUG=False
             DJANGO_DEV_MODE=True
-            DEFAULT_FROM_EMAIL=${{DEFAULT_FROM_EMAIL}}
-            SERVER_EMAIL=${{SERVER_EMAIL}}
-            EMAIL_HOST=${{EMAIL_HOST}}
+            DEFAULT_FROM_EMAIL=${{secrets.DEFAULT_FROM_EMAIL}}
+            SERVER_EMAIL=${{secrets.SERVER_EMAIL}}
+            EMAIL_HOST=${{secrets.EMAIL_HOST}}
             EMAIL_PORT=465
             EMAIL_USE_SSL=True
-            EMAIL_HOST_USER=${{EMAIL_HOST_USER}}
-            EMAIL_HOST_PASSWORD=${{EMAIL_HOST_PASSWORD}}
-            BREVO_API_KEY = ${{BREVO_API_KEY}}
+            EMAIL_HOST_USER=${{secrets.EMAIL_HOST_USER}}
+            EMAIL_HOST_PASSWORD=${{secrets.EMAIL_HOST_PASSWORD}}
+            BREVO_API_KEY = ${{secrets.BREVO_API_KEY}}
             FRONTEND_SITE_URL=https://lms.tyuan21081.top
             SITE_URL=https://lms.tyuan21081.top
             ALIPAY_SERVER_URL=https://openapi-sandbox.dl.alipaydev.com/gateway.do
-            ALIPAY_APP_ID=${{ALIPAY_APP_ID}}
-            ALIPAY_APP_PRIVATE_KEY=${{ALIPAY_APP_PRIVATE_KEY}}
-            ALIPAY_PUBLIC_KEY=${{ALIPAY_PUBLIC_KEY}}
+            ALIPAY_APP_ID=${{secrets.ALIPAY_APP_ID}}
+            ALIPAY_APP_PRIVATE_KEY=${{secrets.ALIPAY_APP_PRIVATE_KEY}}
+            ALIPAY_PUBLIC_KEY=${{secrets.ALIPAY_PUBLIC_KEY}}
             ALIPAY_RETURN_URL=https://lms.tyuan21081.top/payment/return
             ALIPAY_NOTIFY_URL=https://lms.tyuan21081.top/payment/notify
-            ALIPAY_SELLER_Id=${{ALIPAY_SELLER_Id}}
-            STRIPE_SECRET_KEY=${{STRIPE_SECRET_KEY}}
-            STRIPE_PUBLIC_KEY=${{STRIPE_PUBLIC_KEY}}
-            PAYPAL_CLIENT_ID=${{PAYPAL_CLIENT_ID}}
-            PAYPAL_SECRET_ID=${{PAYPAL_SECRET_ID}}
-            PAYPAL_RECEIVER_EMAIL=${{PAYPAL_RECEIVER_EMAIL}}
+            ALIPAY_SELLER_Id=${{secrets.ALIPAY_SELLER_Id}}
+            STRIPE_SECRET_KEY=${{secrets.STRIPE_SECRET_KEY}}
+            STRIPE_PUBLIC_KEY=${{secrets.STRIPE_PUBLIC_KEY}}
+            PAYPAL_CLIENT_ID=${{secrets.PAYPAL_CLIENT_ID}}
+            PAYPAL_SECRET_ID=${{secrets.PAYPAL_SECRET_ID}}
+            PAYPAL_RECEIVER_EMAIL=${{secrets.PAYPAL_RECEIVER_EMAIL}}
             PAYPAL_TEST=True
             EOF
 
