@@ -53,7 +53,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: .
-        file: ./backend/Dockerfile.fast
+        file: ./backend/Dockerfile
         platforms: linux/amd64
         push: true
         tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-backend:latest
@@ -146,23 +146,43 @@ jobs:
           
           # 等待容器启动并初始化
           echo "等待容器启动和初始化..."
-          sleep 30
+          sleep 15
+          
+          # 立即检查后端容器日志
+          echo "检查后端启动日志..."
+          docker-compose -f docker-compose.yml logs lms-backend --tail=30
           
           # 检查后端是否正在运行
           echo "检查后端容器状态..."
-          docker ps | grep lms-backend || echo "后端容器未运行"
+          docker ps -a | grep lms-backend
           
           # 检查后端容器是否正在运行
           echo "检查后端容器运行状态..."
-          for i in {1..6}; do
+          backend_running=false
+          for i in {1..3}; do
             if docker ps | grep -q "lms-backend.*Up"; then
               echo "后端容器正在运行！"
+              backend_running=true
               break
             else
-              echo "等待后端容器启动... ($i/6)"
+              echo "等待后端容器启动... ($i/3)"
               sleep 10
             fi
           done
+          
+          # 如果后端容器启动失败，尝试本地构建
+          if [ "$backend_running" = false ]; then
+            echo "预构建镜像启动失败，停止容器并使用本地构建..."
+            docker-compose -f docker-compose.yml down
+            docker rmi lms-backend:latest || true
+            echo "使用本地Dockerfile构建后端..."
+            docker-compose -f docker-compose.yml build backend
+            echo "重新启动后端服务..."
+            docker-compose -f docker-compose.yml up -d backend
+            sleep 20
+            echo "检查本地构建的后端状态..."
+            docker-compose -f docker-compose.yml logs lms-backend --tail=20
+          fi
           
           # 启动前端容器（确保后端已准备好）
           echo "启动前端容器..."
