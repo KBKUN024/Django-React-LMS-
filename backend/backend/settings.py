@@ -91,6 +91,9 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG', default=False)
 
+# 生产环境强制启用静态文件服务（解决Django Admin样式问题）
+FORCE_SERVE_STATIC = env.bool('DJANGO_DEV_MODE', default=False)
+
 ALLOWED_HOSTS = ['lms.tyuan21081.top', 'localhost', '127.0.0.1', 'lms-backend', 'backend', 'lms-frontend']
 
 # CSRF配置 - 解决POST请求403/500错误
@@ -104,9 +107,14 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 # 确保CSRF cookie在HTTPS下正常工作
-CSRF_COOKIE_SECURE = False  # 开发环境设为False，生产环境建议设为True
+CSRF_COOKIE_SECURE = True  # 生产环境使用HTTPS时必须设为True
 CSRF_COOKIE_HTTPONLY = False  # 允许JavaScript访问CSRF token
 CSRF_COOKIE_SAMESITE = 'Lax'  # 允许跨站请求携带CSRF token
+
+# Session安全配置
+SESSION_COOKIE_SECURE = True  # HTTPS环境下session cookie安全传输
+SESSION_COOKIE_HTTPONLY = True  # 防止XSS攻击
+SESSION_COOKIE_SAMESITE = 'Lax'
 
 # 添加CSRF豁免（对于API请求）
 CSRF_EXEMPT_URLS = [
@@ -382,6 +390,9 @@ CORS_ALLOWED_ORIGIN_REGEXES = [
     r"^https://lms\.tyuan21081\.top$",
     r"^http://lms\.tyuan21081\.top$",
 ]
+
+# CORS预检请求设置
+CORS_PREFLIGHT_MAX_AGE = 86400  # 24小时缓存预检请求
 
 # 允许的请求头
 CORS_ALLOW_HEADERS = [
