@@ -1,0 +1,83 @@
+# 服务器端docker-compose配置 - 使用加速镜像
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    image: lms-backend:latest
+    container_name: lms-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DJANGO_SETTINGS_MODULE=backend.settings
+      - PYTHONPATH=/app
+      - SECRET_KEY=${SECRET_KEY}
+      - DEBUG=False
+      - DJANGO_DEV_MODE=True  # 启用静态文件服务
+      - DEFAULT_FROM_EMAIL=${DEFAULT_FROM_EMAIL}
+      - SERVER_EMAIL=${SERVER_EMAIL}
+      - EMAIL_HOST=${EMAIL_HOST}
+      - EMAIL_PORT=${EMAIL_PORT}
+      - EMAIL_USE_SSL=${EMAIL_USE_SSL}
+      - EMAIL_HOST_USER=${EMAIL_HOST_USER}
+      - EMAIL_HOST_PASSWORD=${EMAIL_HOST_PASSWORD}
+      - FRONTEND_SITE_URL=https://lms.tyuan21081.top
+    volumes:
+      # 持久化媒体文件和数据库
+      - ./backend/media:/app/media
+      - ./backend/db.sqlite3:/app/db.sqlite3
+      # 使用命名卷存储静态文件，避免污染宿主机
+      - backend_staticfiles:/app/staticfiles
+    networks:
+      - lms-network
+    restart: unless-stopped
+    # 资源限制 - 适合2GB内存服务器
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '1.0'
+        reservations:
+          memory: 256M
+          cpus: '0.5'
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/api/v1/course/category/ || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/frontend/Dockerfile.server
+    image: lms-frontend:latest
+    container_name: lms-frontend
+    ports:
+      - "8080:80"  # 使用8080端口，避免与宝塔面板冲突
+    volumes:
+      # 挂载静态文件目录，让nginx直接服务Django静态文件
+      - backend_staticfiles:/app/staticfiles:ro
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - lms-network
+    restart: unless-stopped
+    # 资源限制 - 前端容器
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.5'
+        reservations:
+          memory: 128M
+          cpus: '0.25'
+
+networks:
+  lms-network:
+    driver: bridge
+    name: lms-network
+
+volumes:
+  backend_staticfiles:

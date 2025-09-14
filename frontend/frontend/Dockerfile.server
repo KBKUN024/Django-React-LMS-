@@ -1,5 +1,5 @@
-# frontend/Dockerfile - 生产环境优化版本
-FROM node:20-alpine AS build
+# frontend/Dockerfile.server - 服务器端构建版本，使用加速镜像
+FROM 4w36ujeoko5joi-ghcr.xuanyuan.run/node:20-alpine AS build
 WORKDIR /app
 
 # 只复制依赖文件，利用Docker缓存
@@ -14,7 +14,7 @@ RUN pnpm run build && \
     pnpm install --frozen-lockfile --production=true
 
 # 生产运行时 - 最小化镜像
-FROM nginx:alpine AS runtime
+FROM 4w36ujeoko5joi-ghcr.xuanyuan.run/nginx:alpine AS runtime
 RUN rm -rf /usr/share/nginx/html/*
 
 # 只复制构建产物
