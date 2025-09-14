@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  REGISTRY: ghcr.nju.edu.cn
+  REGISTRY: docker.io
   IMAGE_NAME: kbkun024/django-react-lms
 
 jobs:
@@ -83,25 +83,25 @@ jobs:
           
           # 拉取预构建镜像（从GitHub Container Registry）
           echo "拉取预构建镜像..."
-          docker pull ghcr.nju.edu.cn/kbkun024/django-react-lms-backend:latest || {
+          docker pull docker.io/kbkun024/django-react-lms-backend:latest || {
             echo "Backend镜像拉取失败，使用快速本地构建..."
             docker build --progress=plain -t lms-backend:latest -f backend/Dockerfile .
           }
           
-          docker pull ghcr.nju.edu.cn/kbkun024/django-react-lms-frontend:latest || {
+          docker pull docker.io/kbkun024/django-react-lms-frontend:latest || {
             echo "Frontend镜像拉取失败，使用快速本地构建..."
             docker build --progress=plain -t lms-frontend:latest -f frontend/frontend/Dockerfile .
           }
           
           # 重新标记镜像为本地名称（如果拉取成功）
-          if docker image inspect ghcr.nju.edu.cn/kbkun024/django-react-lms-backend:latest >/dev/null 2>&1; then
+          if docker image inspect docker.io/kbkun024/django-react-lms-backend:latest >/dev/null 2>&1; then
             echo "标记backend镜像..."
-            docker tag ghcr.nju.edu.cn/kbkun024/django-react-lms-backend:latest lms-backend:latest
+            docker tag docker.io/kbkun024/django-react-lms-backend:latest lms-backend:latest
           fi
           
-          if docker image inspect ghcr.nju.edu.cn/kbkun024/django-react-lms-frontend:latest >/dev/null 2>&1; then
+          if docker image inspect docker.io/kbkun024/django-react-lms-frontend:latest >/dev/null 2>&1; then
             echo "标记frontend镜像..."
-            docker tag ghcr.nju.edu.cn/kbkun024/django-react-lms-frontend:latest lms-frontend:latest
+            docker tag docker.io/kbkun024/django-react-lms-frontend:latest lms-frontend:latest
           fi
           
           # 启动服务
