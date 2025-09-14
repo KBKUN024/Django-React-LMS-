@@ -39,7 +39,7 @@ ENV PATH=/home/appuser/.local/bin:$PATH
 COPY backend/ /app/
 
 # 设置环境变量
-ENV DJANGO_SETTINGS_MODULE=backend.backend.settings \
+ENV DJANGO_SETTINGS_MODULE=backend.settings \
     PYTHONPATH=/app
 
 # 创建必需目录并设置权限
@@ -55,7 +55,7 @@ RUN python manage.py collectstatic --noinput --clear || true
 EXPOSE 8000
 
 # 使用gunicorn但添加详细日志
-CMD ["gunicorn", "backend.backend.wsgi:application", \
+CMD ["gunicorn", "backend.wsgi:application", \
      "--bind", "0.0.0.0:8000", \
      "--workers", "1", \
      "--worker-class", "sync", \

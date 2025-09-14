@@ -8,7 +8,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - DJANGO_SETTINGS_MODULE=backend.backend.settings
+      - DJANGO_SETTINGS_MODULE=backend.settings
       - PYTHONPATH=/app
       - SECRET_KEY=${SECRET_KEY}
       - DEBUG=False
@@ -41,7 +41,7 @@ services:
       - ./backend/media:/app/media
       - ./backend/db.sqlite3:/app/db.sqlite3
       # 挂载.env文件到Django项目根目录
-      - ./.env:/app/backend/.env
+      - ./.env:/app/.env
       # 使用命名卷存储静态文件，避免污染宿主机
       # - backend_staticfiles:/app/staticfiles
     networks:
