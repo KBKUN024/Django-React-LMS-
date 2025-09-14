@@ -1,5 +1,5 @@
 # backend/Dockerfile - 生产环境优化版本
-FROM python:3.13-slim AS base
+FROM 4w36ujeoko5joi-ghcr.xuanyuan.run/python:3.13-slim AS base
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1 \
