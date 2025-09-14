@@ -150,7 +150,7 @@ jobs:
           
           # 立即检查后端容器日志
           echo "检查后端启动日志..."
-          docker-compose -f docker-compose.yml logs lms-backend --tail=30
+          docker-compose -f docker-compose.yml logs backend --tail=30
           
           # 检查后端是否正在运行
           echo "检查后端容器状态..."
@@ -181,7 +181,7 @@ jobs:
             docker-compose -f docker-compose.yml up -d backend
             sleep 20
             echo "检查本地构建的后端状态..."
-            docker-compose -f docker-compose.yml logs lms-backend --tail=20
+            docker-compose -f docker-compose.yml logs backend --tail=20
           fi
           
           # 启动前端容器（确保后端已准备好）
@@ -194,7 +194,7 @@ jobs:
           
           # 检查后端容器日志
           echo "检查后端容器日志..."
-          docker-compose -f docker-compose.yml logs lms-backend --tail=20
+          docker-compose -f docker-compose.yml logs backend --tail=20
           
           # 测试后端API是否可访问
           echo "测试后端API..."
