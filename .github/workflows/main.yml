@@ -154,22 +154,22 @@ jobs:
             PAYPAL_RECEIVER_EMAIL=${{secrets.PAYPAL_RECEIVER_EMAIL}}
             PAYPAL_TEST=True
             EOF
-            
+
             # 验证.env文件创建
             echo "验证.env文件内容..."
             ls -la .env
             echo "前几行内容："
             head -5 .env
-            
+
             # 检查容器内文件结构
             echo "检查容器内文件结构..."
             docker run --rm lms-backend:latest ls -la /app/
             docker run --rm lms-backend:latest ls -la /app/backend/ || echo "backend目录不存在"
-            
+
             # 检查.env文件是否能被容器读取
             echo "测试.env文件挂载..."
             docker run --rm -v $(pwd)/.env:/opt/lms/.env lms-backend:latest cat /opt/lms/.env | head -3 || echo ".env文件挂载失败"
-            
+
             # 只启动后端服务
             echo "启动后端服务..."
             docker-compose -f docker-compose.yml up -d backend
@@ -213,13 +213,13 @@ jobs:
               echo "检查本地构建的后端状态..."
               docker-compose -f docker-compose.yml logs backend --tail=20
             fi
-            
+
             # 检查Django配置和环境变量
             echo "检查Django配置..."
-            docker exec lms-backend python manage.py check || echo "Django配置检查失败"
+            docker exec lms-backend sh -c "cd backend && python manage.py check" || echo "Django配置检查失败"
             echo "检查容器内.env文件..."
-            docker exec lms-backend ls -la /app/.env || echo ".env文件不存在"
-            docker exec lms-backend head -3 /app/.env || echo "无法读取.env文件"
+            docker exec lms-backend ls -la /app/backend/.env || echo ".env文件不存在"
+            docker exec lms-backend head -3 /app/backend/.env || echo "无法读取.env文件"
 
             # 启动前端容器（确保后端已准备好）
             echo "启动前端容器..."

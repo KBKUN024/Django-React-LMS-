@@ -28,7 +28,7 @@ services:
       # 挂载.env文件到Django项目根目录
       - ./.env:/app/.env
       # 使用命名卷存储静态文件，避免污染宿主机
-      - backend_staticfiles:/app/staticfiles
+      # - backend_staticfiles:/app/staticfiles
     networks:
       - lms-network
     restart: unless-stopped
