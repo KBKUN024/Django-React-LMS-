@@ -58,8 +58,7 @@ services:
       # 挂载静态文件目录，让nginx直接服务Django静态文件
       - backend_staticfiles:/app/staticfiles:ro
     depends_on:
-      backend:
-        condition: service_healthy
+      - backend
     networks:
       - lms-network
     restart: unless-stopped

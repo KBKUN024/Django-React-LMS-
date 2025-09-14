@@ -144,9 +144,29 @@ jobs:
           echo "启动服务..."
           docker-compose -f docker-compose.yml up -d
           
-          # 等待容器启动
-          echo "等待容器启动..."
-          sleep 10
+          # 等待容器启动并初始化
+          echo "等待容器启动和初始化..."
+          sleep 30
+          
+          # 检查后端是否正在运行
+          echo "检查后端容器状态..."
+          docker ps | grep lms-backend || echo "后端容器未运行"
+          
+          # 等待健康检查通过
+          echo "等待健康检查通过..."
+          for i in {1..12}; do
+            if docker inspect lms-backend --format='{{.State.Health.Status}}' 2>/dev/null | grep -q "healthy"; then
+              echo "后端容器健康检查通过！"
+              break
+            else
+              echo "等待健康检查... ($i/12)"
+              sleep 10
+            fi
+          done
+          
+          # 启动前端容器（确保后端已准备好）
+          echo "启动前端容器..."
+          docker-compose -f docker-compose.yml up -d frontend
           
           # 检查启动状态
           echo "检查容器状态..."
