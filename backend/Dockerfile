@@ -54,11 +54,12 @@ RUN python manage.py collectstatic --noinput --clear || true
 
 EXPOSE 8000
 
-# 使用更轻量的启动配置
+# 使用gunicorn但添加详细日志
 CMD ["gunicorn", "backend.wsgi:application", \
      "--bind", "0.0.0.0:8000", \
-     "--workers", "2", \
+     "--workers", "1", \
      "--worker-class", "sync", \
-     "--max-requests", "1000", \
-     "--timeout", "30", \
-     "--keep-alive", "2"]
+     "--timeout", "60", \
+     "--log-level", "debug", \
+     "--access-logfile", "-", \
+     "--error-logfile", "-"]
