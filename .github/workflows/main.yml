@@ -161,9 +161,14 @@ jobs:
             echo "前几行内容："
             head -5 .env
             
-            # 先测试Django配置
-            echo "测试Django配置..."
-            docker run --rm -v $(pwd)/.env:/app/.env -v $(pwd)/backend:/app lms-backend:latest python manage.py check || echo "Django配置检查失败"
+            # 检查容器内文件结构
+            echo "检查容器内文件结构..."
+            docker run --rm lms-backend:latest ls -la /app/
+            docker run --rm lms-backend:latest ls -la /app/backend/ || echo "backend目录不存在"
+            
+            # 检查.env文件是否能被容器读取
+            echo "测试.env文件挂载..."
+            docker run --rm -v $(pwd)/.env:/opt/lms/.env lms-backend:latest cat /opt/lms/.env | head -3 || echo ".env文件挂载失败"
             
             # 只启动后端服务
             echo "启动后端服务..."
@@ -209,13 +214,12 @@ jobs:
               docker-compose -f docker-compose.yml logs backend --tail=20
             fi
             
-            # 尝试用Django开发服务器运行以获取详细错误
-            echo "尝试用Django开发服务器诊断问题..."
-            docker exec lms-backend python manage.py check || echo "Django检查失败"
-            echo "尝试手动启动Django..."
-            docker exec lms-backend python manage.py runserver 0.0.0.0:8001 --noreload &
-            sleep 5
-            docker exec lms-backend curl -f http://localhost:8001/ || echo "Django开发服务器测试失败"
+            # 检查Django配置和环境变量
+            echo "检查Django配置..."
+            docker exec lms-backend python manage.py check || echo "Django配置检查失败"
+            echo "检查容器内.env文件..."
+            docker exec lms-backend ls -la /app/.env || echo ".env文件不存在"
+            docker exec lms-backend head -3 /app/.env || echo "无法读取.env文件"
 
             # 启动前端容器（确保后端已准备好）
             echo "启动前端容器..."

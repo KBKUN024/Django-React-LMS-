@@ -25,6 +25,8 @@ services:
       # 持久化媒体文件和数据库
       - ./backend/media:/app/media
       - ./backend/db.sqlite3:/app/db.sqlite3
+      # 挂载.env文件
+      - ./.env:/app/.env
       # 使用命名卷存储静态文件，避免污染宿主机
       - backend_staticfiles:/app/staticfiles
     networks:
