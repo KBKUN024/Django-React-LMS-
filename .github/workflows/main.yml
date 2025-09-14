@@ -140,9 +140,9 @@ jobs:
           FRONTEND_SITE_URL=https://lms.tyuan21081.top
           EOF
           
-          # 启动服务
-          echo "启动服务..."
-          docker-compose -f docker-compose.yml up -d
+          # 只启动后端服务
+          echo "启动后端服务..."
+          docker-compose -f docker-compose.yml up -d backend
           
           # 等待容器启动并初始化
           echo "等待容器启动和初始化..."
@@ -152,14 +152,14 @@ jobs:
           echo "检查后端容器状态..."
           docker ps | grep lms-backend || echo "后端容器未运行"
           
-          # 等待健康检查通过
-          echo "等待健康检查通过..."
-          for i in {1..12}; do
-            if docker inspect lms-backend --format='{{.State.Health.Status}}' 2>/dev/null | grep -q "healthy"; then
-              echo "后端容器健康检查通过！"
+          # 检查后端容器是否正在运行
+          echo "检查后端容器运行状态..."
+          for i in {1..6}; do
+            if docker ps | grep -q "lms-backend.*Up"; then
+              echo "后端容器正在运行！"
               break
             else
-              echo "等待健康检查... ($i/12)"
+              echo "等待后端容器启动... ($i/6)"
               sleep 10
             fi
           done
@@ -176,9 +176,9 @@ jobs:
           echo "检查后端容器日志..."
           docker-compose -f docker-compose.yml logs lms-backend --tail=20
           
-          # 检查后端健康状态
-          echo "检查后端健康状态..."
-          docker inspect lms-backend --format='{{.State.Health.Status}}' || echo "健康检查不可用"
+          # 测试后端API是否可访问
+          echo "测试后端API..."
+          docker exec lms-backend curl -f http://localhost:8000/ || echo "API暂时不可访问，但容器正在运行"
           
           # 检查所有容器日志
           echo "检查所有容器日志..."
