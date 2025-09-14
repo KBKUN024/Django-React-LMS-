@@ -93,28 +93,36 @@ jobs:
           echo "停止旧容器..."
           docker-compose -f docker-compose.yml down || true
           
-          # 拉取预构建镜像（从GitHub Container Registry）
+          # 配置Docker使用加速镜像源
+          echo "配置Docker镜像加速..."
+          sudo mkdir -p /etc/docker
+          echo '{
+            "registry-mirrors": ["https://4w36ujeoko5joi-ghcr.xuanyuan.run"],
+            "insecure-registries": ["4w36ujeoko5joi-ghcr.xuanyuan.run"]
+          }' | sudo tee /etc/docker/daemon.json
+          sudo systemctl restart docker || true
+          
+          # 拉取预构建镜像（优先使用加速域名）
           echo "拉取预构建镜像..."
-          docker pull ghcr.io/kbkun024/django-react-lms-backend:latest || {
-            echo "Backend镜像拉取失败，使用服务器端构建（支持加速镜像）..."
-            docker build --progress=plain -t lms-backend:latest -f backend/Dockerfile.server .
+          docker pull 4w36ujeoko5joi-ghcr.xuanyuan.run/kbkun024/django-react-lms-backend:latest && \
+          docker tag 4w36ujeoko5joi-ghcr.xuanyuan.run/kbkun024/django-react-lms-backend:latest lms-backend:latest || {
+            echo "加速域名拉取失败，尝试直接拉取..."
+            docker pull ghcr.io/kbkun024/django-react-lms-backend:latest && \
+            docker tag ghcr.io/kbkun024/django-react-lms-backend:latest lms-backend:latest || {
+              echo "镜像拉取失败，使用本地构建..."
+              docker build --progress=plain -t lms-backend:latest -f backend/Dockerfile.server .
+            }
           }
           
-          docker pull ghcr.io/kbkun024/django-react-lms-frontend:latest || {
-            echo "Frontend镜像拉取失败，使用服务器端构建（支持加速镜像）..."
-            docker build --progress=plain -t lms-frontend:latest -f frontend/frontend/Dockerfile.server .
+          docker pull 4w36ujeoko5joi-ghcr.xuanyuan.run/kbkun024/django-react-lms-frontend:latest && \
+          docker tag 4w36ujeoko5joi-ghcr.xuanyuan.run/kbkun024/django-react-lms-frontend:latest lms-frontend:latest || {
+            echo "加速域名拉取失败，尝试直接拉取..."
+            docker pull ghcr.io/kbkun024/django-react-lms-frontend:latest && \
+            docker tag ghcr.io/kbkun024/django-react-lms-frontend:latest lms-frontend:latest || {
+              echo "镜像拉取失败，使用本地构建..."
+              docker build --progress=plain -t lms-frontend:latest -f frontend/frontend/Dockerfile.server .
+            }
           }
-          
-          # 重新标记镜像为本地名称（如果拉取成功）
-          if docker image inspect ghcr.io/kbkun024/django-react-lms-backend:latest >/dev/null 2>&1; then
-            echo "标记backend镜像..."
-            docker tag ghcr.io/kbkun024/django-react-lms-backend:latest lms-backend:latest
-          fi
-          
-          if docker image inspect ghcr.io/kbkun024/django-react-lms-frontend:latest >/dev/null 2>&1; then
-            echo "标记frontend镜像..."
-            docker tag ghcr.io/kbkun024/django-react-lms-frontend:latest lms-frontend:latest
-          fi
           
           # 启动服务
           echo "启动服务..."
