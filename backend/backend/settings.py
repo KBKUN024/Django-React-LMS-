@@ -143,7 +143,7 @@ INSTALLED_APPS = [
     "api",
     # Third Party App
     "rest_framework",
-    "rest_framework_simplejwt.token_blacklist",
+    # "rest_framework_simplejwt.token_blacklist",  # 临时禁用以避免数据库写入问题
     "corsheaders",  # 让跨域请求变为可能，不然react前端请求django后端接口的时候，默认是会被阻止的
     "anymail",  # 邮件服务集成
     "drf_yasg",
@@ -345,8 +345,8 @@ SWAGGER_SETTINGS = {
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),  # 访问令牌有效期（15分钟）
     "REFRESH_TOKEN_LIFETIME": timedelta(days=50),  # 刷新令牌有效期（50天）
-    "ROTATE_REFRESH_TOKENS": True,  # 每次刷新时是否生成新的刷新令牌
-    "BLACKLIST_AFTER_ROTATION": True,  # 令牌轮换后是否将旧的刷新令牌拉黑
+    "ROTATE_REFRESH_TOKENS": False,  # 关闭令牌轮换以避免数据库写入
+    "BLACKLIST_AFTER_ROTATION": False,  # 关闭黑名单以避免数据库写入
     "UPDATE_LAST_LOGIN": False,  # 是否在用户刷新令牌时更新last_login字段
     "ALGORITHM": "HS256",  # JWT签名算法
     "VERIFYING_KEY": None,  # 公钥（用于非对称加密，HS256无需设置）

@@ -6,7 +6,12 @@ echo "🔧 开始部署修复..."
 # 1. 提交更改到Git
 echo "📝 提交代码更改..."
 git add .
-git commit -m "Fix database permission and media file issues
+git commit -m "Fix database permission, static files, and JWT issues
+
+- Use root user in Docker container for database write access
+- Fix static file collection path issues
+- Disable JWT token blacklist to avoid database writes
+- Improve container startup script with better error handling
 
 🛠️ Generated with [Claude Code](https://claude.ai/code)
 

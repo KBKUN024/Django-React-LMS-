@@ -28,12 +28,10 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends curl && \
     rm -rf /var/lib/apt/lists/*
 
-# 创建非root用户
-RUN adduser --disabled-password --gecos '' --uid 1000 appuser
-
+# 直接使用root用户（解决数据库权限问题）
 # 从builder复制Python依赖
-COPY --from=builder /root/.local /home/appuser/.local
-ENV PATH=/home/appuser/.local/bin:$PATH
+COPY --from=builder /root/.local /root/.local
+ENV PATH=/root/.local/bin:$PATH
 
 # 复制应用代码
 COPY backend/ /app/
@@ -42,12 +40,8 @@ COPY backend/ /app/
 ENV DJANGO_SETTINGS_MODULE=backend.settings \
     PYTHONPATH=/app
 
-# 创建必需目录并设置权限
-RUN mkdir -p /app/static /app/media /app/staticfiles /app/templates && \
-    chown -R appuser:appuser /app
-
-# 切换到非root用户
-USER appuser
+# 创建必需目录
+RUN mkdir -p /app/static /app/media /app/staticfiles /app/templates
 
 # 收集静态文件
 RUN python manage.py collectstatic --noinput --clear || true
@@ -55,16 +49,20 @@ RUN python manage.py collectstatic --noinput --clear || true
 # 创建启动脚本，确保每次启动都收集静态文件和检查数据库权限
 RUN echo '#!/bin/bash\n\
 set -e\n\
+cd /app\n\
+echo "当前目录: $(pwd)"\n\
+echo "检查管理脚本: $(ls -la manage.py 2>/dev/null || echo "manage.py不存在")"\n\
 echo "检查数据库权限..."\n\
 if [ -f "/app/db.sqlite3" ]; then\n\
-    echo "数据库文件已存在，检查权限..."\n\
-    chmod 666 /app/db.sqlite3 || echo "警告：无法更改数据库权限"\n\
+    echo "数据库文件已存在，设置权限为666..."\n\
+    chmod 666 /app/db.sqlite3\n\
+    echo "数据库权限设置完成: $(ls -la /app/db.sqlite3)"\n\
 else\n\
     echo "数据库文件不存在，运行迁移..."\n\
-    python manage.py migrate || echo "警告：迁移失败"\n\
+    python manage.py migrate\n\
 fi\n\
 echo "收集静态文件..."\n\
-python manage.py collectstatic --noinput --clear || true\n\
+python manage.py collectstatic --noinput --clear\n\
 echo "启动Gunicorn..."\n\
 exec gunicorn backend.wsgi:application \\\n\
     --bind 0.0.0.0:8000 \\\n\
