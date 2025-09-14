@@ -1,5 +1,5 @@
 # backend/Dockerfile.server - 服务器端构建版本，使用加速镜像
-FROM 4w36ujeoko5joi-ghcr.xuanyuan.run/python:3.13-slim AS base
+FROM 4w36ujeoko5joi-ghcr.xuanyuan.run/python:3.11-slim AS base
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1 \
@@ -60,11 +60,12 @@ python manage.py collectstatic --noinput --clear || true\n\
 echo "启动Gunicorn..."\n\
 exec gunicorn backend.wsgi:application \\\n\
     --bind 0.0.0.0:8000 \\\n\
-    --workers 2 \\\n\
+    --workers 1 \\\n\
     --worker-class sync \\\n\
-    --max-requests 1000 \\\n\
-    --timeout 30 \\\n\
-    --keep-alive 2\n\
+    --timeout 60 \\\n\
+    --log-level debug \\\n\
+    --access-logfile - \\\n\
+    --error-logfile -\n\
 ' > /app/start.sh && chmod +x /app/start.sh
 
 EXPOSE 8000

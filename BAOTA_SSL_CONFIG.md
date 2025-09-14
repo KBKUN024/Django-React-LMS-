@@ -75,6 +75,18 @@ location /static/ {
     add_header Access-Control-Allow-Origin *;
     add_header Access-Control-Allow-Methods "GET, POST, OPTIONS";
     add_header Access-Control-Allow-Headers "DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range";
+    
+    # 确保静态文件能够正确加载
+    try_files $uri $uri/ @django_static;
+}
+
+# 如果静态文件不存在，回退到Django后端
+location @django_static {
+    proxy_pass http://127.0.0.1:8000;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
 }
 
 location /media/ {

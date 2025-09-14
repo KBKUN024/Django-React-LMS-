@@ -24,6 +24,7 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from django.utils import translation
+from core.views import debug_static_files
 
 # 临时切换到英文生成Swagger schema以避免翻译代理对象问题
 def get_swagger_schema_view():
@@ -54,16 +55,9 @@ urlpatterns = [
     path("redoc/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
     path("admin/", admin.site.urls),
     path("api/v1/", include("api.urls"), name="api_url"),
+    path("debug/static/", debug_static_files, name="debug_static"),
 ]
-# 在开发环境或DEBUG模式下服务媒体文件和静态文件
-import os
-# 使用更可靠的条件判断
-serve_static_files = (
-    settings.DEBUG or 
-    os.environ.get('DJANGO_DEV_MODE') == 'True' or
-    os.environ.get('SERVE_STATIC_FILES') == 'True'
-)
-
-if serve_static_files:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+# 始终服务媒体文件和静态文件（生产环境也需要）
+# 这样Django admin的静态文件才能正常工作
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -137,7 +137,7 @@ jobs:
             EMAIL_USE_SSL=True
             EMAIL_HOST_USER=${{secrets.EMAIL_HOST_USER}}
             EMAIL_HOST_PASSWORD=${{secrets.EMAIL_HOST_PASSWORD}}
-            BREVO_API_KEY = ${{secrets.BREVO_API_KEY}}
+            BREVO_API_KEY=${{secrets.BREVO_API_KEY}}
             FRONTEND_SITE_URL=https://lms.tyuan21081.top
             SITE_URL=https://lms.tyuan21081.top
             ALIPAY_SERVER_URL=https://openapi-sandbox.dl.alipaydev.com/gateway.do

@@ -47,6 +47,40 @@ print(f"DEBUG: Current working directory: {Path.cwd()}")
 print(f"DEBUG: BASE_DIR: {BASE_DIR}")
 print(f"DEBUG: Checked env paths: {env_paths}")
 
+# 添加日志配置，用于生产环境调试
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO' if not env.bool('DEBUG', default=False) else 'DEBUG',
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'core.middleware': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+    },
+}
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -73,6 +107,16 @@ CSRF_TRUSTED_ORIGINS = [
 CSRF_COOKIE_SECURE = False  # 开发环境设为False，生产环境建议设为True
 CSRF_COOKIE_HTTPONLY = False  # 允许JavaScript访问CSRF token
 CSRF_COOKIE_SAMESITE = 'Lax'  # 允许跨站请求携带CSRF token
+
+# 添加CSRF豁免（对于API请求）
+CSRF_EXEMPT_URLS = [
+    r'^api/v1/.*$',  # 所有API请求豁免CSRF检查
+]
+
+# 或者更简单的方式：禁用CSRF中间件对API的检查
+CSRF_USE_SESSIONS = False
+CSRF_COOKIE_NAME = 'csrftoken'
+CSRF_HEADER_NAME = 'HTTP_X_CSRFTOKEN'
 
 AUTH_USER_MODEL = "userauths.User"
 # Application definition
@@ -103,7 +147,7 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
+    "core.middleware.CustomCsrfMiddleware",  # 使用自定义CSRF中间件
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
@@ -177,31 +221,22 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
-# 静态文件目录配置
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-    BASE_DIR / "staticfiles",  # 确保包含收集的静态文件
-]
-
-# 静态文件收集目录
+# 静态文件收集目录 - 生产环境中Django admin等静态文件的位置
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-# 确保静态文件在DEBUG=False时也能正常工作
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
-
-# 在DEBUG=False时也提供静态文件服务（用于调试）
-if not DEBUG:
-    # 添加静态文件URL模式
-    STATICFILES_DIRS = [
-        BASE_DIR / "static",
-        BASE_DIR / "staticfiles",
-    ]
+# 静态文件目录配置 - 开发阶段的静态文件源目录
+STATICFILES_DIRS = [
+    BASE_DIR / "static",  # 自定义静态文件目录
+]
 
 # 确保静态文件查找器包含所有必要的查找器
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
+
+# 静态文件存储配置
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 MEDIA_URL = "/media/"  # 127.0.0.1/media/avatar.jpg
 MEDIA_ROOT = BASE_DIR / "media"
